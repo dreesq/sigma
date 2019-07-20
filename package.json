@@ -1,0 +1,16 @@
+{
+  "name": "sigma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "example": "cd examples/main && npm start",
+    "build": "rollup -c"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "styled-components": "^4.3.2",
+    "react": "^16.8.6"
+  }
+}
