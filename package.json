@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "example": "cd examples/main && npm start",
-    "build": "rollup -c"
   },
   "author": "",
   "license": "ISC",
