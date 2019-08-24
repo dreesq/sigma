@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-    <a href="https://dreesq.github.io/sigma/docs/demo/" target="_blank">Demo</a>  
+    <a href="https://dreesq.github.io/sigma/" target="_blank">Demo</a>  
 </p>
 
 Sigma is an UI library made using `styled-components`. You can install it using `npm install @dreesq/sigma` command.

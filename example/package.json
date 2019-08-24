@@ -1,6 +1,6 @@
 {
-  "name": "sigma-1-example",
-  "homepage": "https://bthe0.github.io/sigma-1",
+  "name": "sigma-example",
+  "homepage": "https://dreesq.github.io/sigma",
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
@@ -9,11 +9,11 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "^1.1.4",
-    "sigma": "file:..",
     "@dreesq/serpent": "^2.2.9",
     "@dreesq/serpent-client": "^1.8.4",
     "axios": "^0.19.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "@dreesq/sigma": "file:.."
   },
   "scripts": {
     "start": "react-scripts start",

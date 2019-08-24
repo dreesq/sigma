@@ -8,14 +8,17 @@ import {
   Base,
   ActionForm,
   ActionLoader
-} from 'sigma'
-
-const client = new Serpent('http://localhost:3000/o', {
-  debug: true,
-  axios
-})
+} from '@dreesq/sigma'
 
 export default class extends Component {
+  constructor(props) {
+    super(props)
+    this.client = new Serpent('http://localhost:3000/o', {
+      debug: true,
+      axios
+    })
+  }
+
   render() {
     return (
       <ThemeProvider theme={{
@@ -23,7 +26,7 @@ export default class extends Component {
           secondary: '#000'
         }
       }}>
-        <Context client={client} debug>
+        <Context client={this.client} debug>
           <Base />
           <ActionLoader />
           <Card width={400} m={'24px auto'}>

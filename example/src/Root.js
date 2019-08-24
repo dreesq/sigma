@@ -21,7 +21,7 @@ import {
   Tooltip,
   Pagination,
   Dropdown
-} from 'sigma'
+} from '@dreesq/sigma'
 
 export default class Root extends Component {
   render() {
