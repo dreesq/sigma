@@ -4,15 +4,15 @@ import {shadeColor, getValue} from '../utils'
 
 const sizes = {
   small: {
-    p: [10, 20],
+    p: [12, 13],
     fontSize: 14
   },
   medium: {
-    p: [12, 24],
+    p: [14, 21],
     fontSize: 16
   },
   large: {
-    p: [14, 30],
+    p: [16, 26],
     fontSize: 17
   }
 }
@@ -35,16 +35,18 @@ export default ({
     outline={'none'}
     borderRadius={4}
     cursor={'pointer'}
-    border={props => `1px solid ${getValue(`colors.${color}`, props)}`}
+    boxSizing={'border-box'}
+    border={'none'}
     {...sizes[size]}
     {...(inverted ? {
       bg: 'transparent',
+      border: props => `1px solid ${getValue(`colors.${color}`, props)}`,
       color: props => getValue(`colors.${color}`, props),
       hover: props => `
             border-color: ${shadeColor(getValue(`colors.${color}`, props), 20)};
             color: ${shadeColor(getValue(`colors.${color}`, props), 20)};
             ${hover ? (typeof hover === 'function' ? hover(props) : hover) : ''}
-        `
+        `,
     } : {
       color: '#fff',
       bg: props => getValue(`colors.${color}`, props),
@@ -66,7 +68,8 @@ export default ({
         
         ${css ? (typeof css === 'function' ? css(props) : css) : ''}
     `}
-    {...others}>
+    {...others}
+  >
     {children}
   </Sigma>
 )

@@ -7,7 +7,7 @@ export default ({
   ...others
 }) => (
   <Sigma
-    bg={'#f3f3f3'}
+    bg={'#f7f7f7'}
     display={'flex'}
     alignItems={'center'}
     height={65}

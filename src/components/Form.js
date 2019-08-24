@@ -44,8 +44,9 @@ const Input = ({
     {...(as === 'select' ? {
       boxSizing: 'content-box',
       height: sizes[size].p[0] * 2 + sizes[size].fontSize,
-      textIndent: sizes[size].p[1] - 5,
-      p: 0
+      p: 0,
+      pl: sizes[size].p[1],
+      pr: sizes[size].p[1]
     } : {})}
     {...(as === 'textarea' ? {
       resize: 'vertical',

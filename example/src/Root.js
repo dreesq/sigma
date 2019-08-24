@@ -28,8 +28,7 @@ export default class Root extends Component {
     return (
       <ThemeProvider theme={{
         colors: {
-          success: '#000',
-          primary: '#7a42ce'
+
         },
         breakpoints: {
 
@@ -59,14 +58,19 @@ export default class Root extends Component {
                           open => (
                             <Fragment>
                               <Button size={'small'} inverted mr={11}>Dropdown <span dangerouslySetInnerHTML={{__html: open ? '&#9652;' : '&#9662;'}} /></Button>
-                              <Card p={[10, 8]}>
-                                  Dropdown content
+                              <Card p={[19, 14]} w={'220px !important'}>
+                                  <S as={'ul'}>
+                                    <S as={'li'} mb={4}>Dropdown Content</S>
+                                    <S as={'li'} mb={4}>Dropdown Content 2</S>
+                                    <S as={'li'} mb={14}>Dropdown Content 3</S>
+                                  </S>
+                                <Button block size={'small'}>Logout</Button>
                               </Card>
                             </Fragment>
                           )
                         }
                       </Dropdown>
-                      <Button size={'small'} color={'success'} onClick={e => this.modal.toggle()}>Open Modal</Button>
+                      <Button size={'small'} color={'success'} h={43} onClick={e => this.modal.toggle()}>Open Modal</Button>
                     </S>
                   </S>
                 </Col>

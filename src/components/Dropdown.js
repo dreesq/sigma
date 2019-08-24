@@ -52,6 +52,7 @@ export default class Dropdown extends Component {
             <OutsideClick
               position={'absolute'}
               mt={4}
+              onOutsideClick={this.onOutsideClick}
             >
               {children[1]}
             </OutsideClick>
