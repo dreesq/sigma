@@ -15,14 +15,14 @@ export default ({
         border-collapse: collapse;
         
         th {
-            border-bottom: 1px solid #dedede;
+            border-bottom: 1px solid #f3f2f2;
             padding: 12px 8px;
             text-align: left;
             font-weight: 500;
         }
         
         tr:not(:last-child) {
-            border-bottom: 1px solid #dedede;
+            border-bottom: 1px solid #f3f2f2;
         }
         
         td {

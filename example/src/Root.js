@@ -81,7 +81,7 @@ export default class Root extends Component {
             <Row>
               <Col md={'width: 40%'}>
                 <S
-                  p={120}
+                  p={[50, 0]}
                   m={'20px auto'}
                   background={'linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);'}
                   borderRadius={12}
