@@ -28,6 +28,7 @@ export default ({
     borderRadius={4}
     userSelector={'none'}
     color={'#fff'}
+    userSelect={'none'}
     bg={props => getValue(`colors.${color}`, props)}
     {...sizes[size]}
     {...others}

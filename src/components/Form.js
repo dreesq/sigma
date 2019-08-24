@@ -38,11 +38,11 @@ const Input = ({
     {...sizes[size]}
     width={'100%'}
     borderRadius={4}
+    boxSizing={'border-box'}
     bg={props => `${!error ? 'transparent' : shadeColor(getValue('colors.danger', props), 200)}`}
     border={props => `1px solid ${error ? getValue('colors.danger', props) : '#dedede'}`}
     outline={'none'}
     {...(as === 'select' ? {
-      boxSizing: 'content-box',
       height: sizes[size].p[0] * 2 + sizes[size].fontSize,
       p: 0,
       pl: sizes[size].p[1],
@@ -67,6 +67,7 @@ const Label = ({
     as={'label'}
     d={'block'}
     mt={10}
+    mb={10}
     fontWeight={'500'}
     {...(error ? {color: props => getValue('colors.danger', props)} : {})}
   >
