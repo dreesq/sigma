@@ -29,41 +29,44 @@ export default ({
   css,
   hover,
   ...others
-}) => React.createElement(Sigma, {
-  as: 'button',
-  outline: 'none',
-  borderRadius: 4,
-  cursor: 'pointer',
-  border: props => `1px solid ${getValue(`colors.${color}`, props)}`,
-  ...sizes[size],
-  ...(inverted ? {
-    bg: 'transparent',
-    color: props => getValue(`colors.${color}`, props),
-    hover: props => `
+}) => (
+  <Sigma
+    as={'button'}
+    outline={'none'}
+    borderRadius={4}
+    cursor={'pointer'}
+    border={props => `1px solid ${getValue(`colors.${color}`, props)}`}
+    {...sizes[size]}
+    {...(inverted ? {
+      bg: 'transparent',
+      color: props => getValue(`colors.${color}`, props),
+      hover: props => `
             border-color: ${shadeColor(getValue(`colors.${color}`, props), 20)};
             color: ${shadeColor(getValue(`colors.${color}`, props), 20)};
             ${hover ? (typeof hover === 'function' ? hover(props) : hover) : ''}
         `
-  } : {
-    color: '#fff',
-    bg: props => getValue(`colors.${color}`, props),
-    hover: props => `
+    } : {
+      color: '#fff',
+      bg: props => getValue(`colors.${color}`, props),
+      hover: props => `
             background: ${shadeColor(getValue(`colors.${color}`, props), 20)};
             ${hover ? (typeof hover === 'function' ? hover(props) : hover) : ''}
         `
-  }),
-  className: `${loading ? 'loading' : ''}${className}`,
-  ...(block ? {width: '100%'} : {}),
-  ...(disabled ? {
-    cursor: 'not-allowed',
-    opacity: '.5'
-  } : {}),
-  css: props => `
+    })}
+    className={ `${loading ? 'loading' : ''}${className}`}
+    {...(block ? {width: '100%'} : {})}
+    {...(disabled ? {
+      cursor: 'not-allowed',
+      opacity: '.5'
+    } : {})}
+    css={props => `
         &.loading {
-            cursor: not-allowed;
+          cursor: not-allowed;
         }
         
         ${css ? (typeof css === 'function' ? css(props) : css) : ''}
-    `,
-  ...others
-}, children)
+    `}
+    {...others}>
+    {children}
+  </Sigma>
+)

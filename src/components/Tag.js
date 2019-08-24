@@ -22,12 +22,16 @@ export default ({
   size = 'medium',
   color = 'primary',
   ...others
-}) => React.createElement(Sigma, {
-  d: 'inline-block',
-  borderRadius: 4,
-  userSelect: 'none',
-  color: '#fff',
-  bg: props => getValue(`colors.${color}`, props),
-  ...sizes[size],
-  ...others
-}, children)
+}) => (
+  <Sigma
+    d={'inline-block'}
+    borderRadius={4}
+    userSelector={'none'}
+    color={'#fff'}
+    bg={props => getValue(`colors.${color}`, props)}
+    {...sizes[size]}
+    {...others}
+  >
+    {children}
+  </Sigma>
+)

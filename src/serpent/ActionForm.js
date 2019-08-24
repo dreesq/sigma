@@ -26,14 +26,7 @@ class ActionForm extends Component {
       errors: {},
       data: {},
       form: {}
-    }
-
-    this.handle = this.handle.bind(this)
-    this._renderField = this._renderField.bind(this)
-    this._renderLabel = this._renderLabel.bind(this)
-    this._renderAlert = this._renderAlert.bind(this)
-    this.parseField = this.parseField.bind(this)
-    this.getMessage = this.getMessage.bind(this)
+    };
   }
 
   componentDidMount() {
@@ -56,7 +49,7 @@ class ActionForm extends Component {
     })
   }
 
-  parseField(field) {
+  parseField = field => {
     let result = {
       label: '',
       values: '',
@@ -77,27 +70,29 @@ class ActionForm extends Component {
     return result
   }
 
-  getLabel(field) {
+  getLabel = field => {
     const {client} = this.context
     let label = client.i18n.t(field.label)
     return label !== '[empty string]' ? label : field.label
   }
 
-  _renderLabel(field, props) {
+  _renderLabel = (field, props) => {
     const {errors} = this.state
 
     if (!field || !field.label) {
       return null
     }
 
-    const label = this.getLabel(field)
-    return e(Label, {
-      error: !!errors[field.name],
-      ...props
-    }, label)
+    const label = this.getLabel(field);
+
+    return (
+      <Label error={!!errors[field.name]} {...props}>
+        {label}
+      </Label>
+    );
   }
 
-  _renderField(field, props) {
+  _renderField = (field, props) => {
     const {errors} = this.state
     const {client} = this.context
 
@@ -110,50 +105,61 @@ class ActionForm extends Component {
 
     switch (field.type) {
       case 'select':
-        return e(Input, {
-          placeholder,
-          as: 'select',
-          error: errors[field.name],
-          onChange: this.onChange(field.name),
-          ...props
-        }, (field.values || []).map((value, key) => {
-          return e('option', {
-            key
-          }, value)
-        }))
-        break
+        return (
+          <Input
+            placeholder={placeholder}
+            error={errors[field.name]}
+            onChange={this.onChange(field.name)}
+            as={'select'}
+            {...props}
+          >
+            {
+              (field.values || []).map((value, key) => {
+                return (
+                  <option key={key}>
+                    {value}
+                  </option>
+                );
+              })
+            }
+          </Input>
+        );
 
       case 'file':
-        return e(Input, {
-          placeholder,
-          as: 'file',
-          error: errors[field.name],
-          onChange: this.onChange(field.name),
-          ...props
-        })
-        break
+        return (
+          <Input
+            as={'file'}
+            placeholder={placeholder}
+            error={errors[field.name]}
+            onChange={this.onChange(field.name)}
+            {...props}
+          />
+        );
 
       case 'textarea':
-        return e(Input, {
-          placeholder,
-          as: 'textarea',
-          error: errors[field.name],
-          onChange: this.onChange(field.name),
-          ...props
-        })
-        break
+        return (
+          <Input
+            placeholder={placeholder}
+            as={'textarea'}
+            error={errors[field.name]}
+            onChange={this.onChange(field.name)}
+            {...props}
+          />
+        );
 
       default:
-        return e(Input, {
-          placeholder: field.name,
-          error: errors[field.name],
-          onChange: this.onChange(field.name),
-          ...props
-        })
+        return (
+          <Input
+            placeholder={field.name}
+            error={errors[field.name]}
+            onChange={this.onChange(field.name)}
+            {...props}
+          />
+        );
     }
   };
 
-  onChange(field) {
+  onChange = field => {
     return e => {
       const {value} = e.target
 
@@ -165,7 +171,7 @@ class ActionForm extends Component {
     }
   }
 
-  _makeProps(props, type, field) {
+  _makeProps = (props, type, field) => {
     const result = {}
 
     if (!props[type]) {
@@ -184,7 +190,7 @@ class ActionForm extends Component {
     return result
   }
 
-  getValues() {
+  getValues = () => {
     const {form} = this.state
     let payload = {}
 
@@ -195,7 +201,7 @@ class ActionForm extends Component {
     return payload
   }
 
-  async handle(e) {
+  handle = async e => {
     e.preventDefault()
 
     const {client} = this.context
@@ -251,7 +257,7 @@ class ActionForm extends Component {
     onSuccess && onSuccess(data)
   }
 
-  getMessage(errors) {
+  getMessage = (errors) => {
     const {client} = this.context
     let message = client.i18n.t(errors[0])
 
@@ -262,7 +268,7 @@ class ActionForm extends Component {
     return message
   }
 
-  _getLayout() {
+  _getLayout = () => {
     const {layout} = this.props
     let currentBp = false
 
@@ -281,20 +287,24 @@ class ActionForm extends Component {
     return layout[currentBp] || false
   }
 
-  _renderHandleBtn(props) {
+  _renderHandleBtn = props => {
     const {loading} = this.state
     const {handleText = 'Handle', withLoading} = this.props
 
-    return e(Button, {
-      onClick: this.handle,
-      key: 'handle-btn',
-      className: 'handle-btn',
-      ...(withLoading ? {loading} : {}),
-      ...this._makeProps(props, 'handle')
-    }, handleText)
+    return (
+      <Button
+        onClick={this.handle}
+        key={'handle-btn'}
+        className={'handle-btn'}
+        {...(withLoading ? {loading} : {})}
+        {...this._makeProps(props, 'handle')}
+      >
+        {handleText}
+      </Button>
+    );
   }
 
-  _renderAlert(props) {
+  _renderAlert = props => {
     const {alert} = this.state
     const {withAlert} = this.props
 
@@ -302,43 +312,43 @@ class ActionForm extends Component {
       return null
     }
 
-    return e(Alert, {
-      mb: 12,
-      color: alert.color,
-      d: 'flex',
-      alignItems: 'center',
-      ...this._makeProps(props, 'alert')
-    }, [
-      alert.message,
-      e(Sigma, {
-        ml: 'auto',
-        cursor: 'pointer'
-      }, e(Sigma, {
-        fontSize: 18,
-        dangerouslySetInnerHTML: {
-          __html: '&times;'
-        }
-      }))
-    ])
+    return (
+      <Alert
+        mb={12}
+        color={alert.color}
+        d={'flex'}
+        alignItems={'center'}
+        {...this._makeProps(props, 'alert')}
+      >
+        {alert.message}
+        <Sigma ml={'auto'} cursor={'pointer'}>
+          <Sigma fontSize={18} dangerouslySetInnerHTML={{__html: '&times'}} />
+        </Sigma>
+      </Alert>
+    );
   }
 
-  _renderCancelBtn(props) {
+  _renderCancelBtn = props => {
     const {cancelText = 'Cancel', onCancel} = this.props
 
     if (!onCancel) {
       return null
     }
 
-    return e(Button, {
-      onClick: onCancel,
-      color: 'secondary',
-      className: 'cancel-btn',
-      key: 'cancel-btn',
-      ...this._makeProps(props, 'cancel')
-    }, cancelText)
+    return (
+      <Button
+        onClick={onCancel}
+        color={'secondary'}
+        className={'cancel-btn'}
+        key={'cancel-btn'}
+        {...this._makeProps(props, 'cancel')}
+      >
+        {cancelText}
+      </Button>
+    );
   }
 
-  _renderFormGroup(field, key, props) {
+  _renderFormGroup = (field, key, props) => {
     const {render = {}} = this.props
     const {form, errors} = this.state
 
@@ -351,18 +361,21 @@ class ActionForm extends Component {
     }) : [
       this._renderLabel(form[field], this._makeProps(props, 'label', field)),
       this._renderField(form[field], this._makeProps(props, 'input', field)),
-      errors[field] && e(Text, {
-        color: 'danger'
-      }, this.getMessage(errors[field]))
+      errors[field] && (
+        <Text color={'danger'}>
+          {this.getMessage(errors[field])}
+        </Text>
+      )
     ]
 
-    return e(Group, {
-      key,
-      ...this._makeProps(props, 'group', field)
-    }, rendered)
+    return (
+      <Group key={key} {...this._makeProps(props, 'group', field)}>
+        {rendered}
+      </Group>
+    );
   };
 
-  _renderFormElement(entry, key, props = {}, globalProps = {}) {
+  _renderFormElement = (entry, key, props = {}, globalProps = {}) => {
     let name = entry
 
     if (typeof entry === 'object') {
@@ -397,26 +410,35 @@ class ActionForm extends Component {
     const {onCancel, props = {}} = this.props
 
     if (!layout) {
-      return <Form />
-
-      return e(Form, {
-        onSubmit: this.handle
-      }, [
-        this._renderAlert(props),
-        Object.keys(form).map((field, key) => this._renderFormGroup(field, key, props)),
-        onCancel && this._renderCancelBtn(props),
-        this._renderHandleBtn(props)
-      ])
+      return (
+        <Form onSubmit={this.handle}>
+          {this._renderAlert(props)}
+          {Object.keys(form).map((field, key) => this._renderFormGroup(field, key, props))}
+          {onCancel && this._renderCancelBtn(props)}
+          {this._renderHandleBtn(props)}
+        </Form>
+      );
     }
 
-    return e(Container, {
-      fluid: true
-    }, e(Form, {}, layout.map((row, rowKey) => e(Row, {
-      key: rowKey
-    }, row.map((entry, key) => e(Col, {
-      key,
-      width: `${row.length === 1 ? '100%' : 100 / row.length + '%'}`
-    }, this._renderFormElement(entry, `${rowKey}-${key}`, {}, props)))))))
+    return (
+      <Container fluid>
+        <Form onSubmit={this.handle}>
+          {
+            layout.map((row, rowKey) => (
+              <Row key={rowKey}>
+                {
+                  row.map((entry, key) => (
+                    <Col key={key} width={`${row.length === 1 ? '100%' : 100 / row.length + '%'}`}>
+                      {this._renderFormElement(entry, `${rowKey}-${key}`, {}, props)}
+                    </Col>
+                  ))
+                }
+              </Row>
+            ))
+          }
+        </Form>
+      </Container>
+    );
   }
 }
 

@@ -5,9 +5,11 @@ export default ({
   children,
   css,
   ...others
-}) => React.createElement(Sigma, {
-  as: 'table',
-  css: props => `
+}) => (
+  <Sigma
+    as={'table'}
+    css={
+      props => `
         width: 100%;
         border-spacing: 0;
         border-collapse: collapse;
@@ -29,6 +31,9 @@ export default ({
         }
     
         ${css ? (typeof css === 'function' ? css(props) : css) : ''}
-    `,
-  ...others
-}, children)
+    `}
+    {...others}
+    >
+    {children}
+  </Sigma>
+);

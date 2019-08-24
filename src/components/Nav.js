@@ -5,13 +5,13 @@ export default ({
   children,
   css,
   ...others
-}) => React.createElement(Sigma, {
-  bg: '#f3f3f3',
-  display: 'flex',
-  as: 'nav',
-  alignItems: 'center',
-  height: 65,
-  css: props => `
+}) => (
+  <Sigma
+    bg={'#f3f3f3'}
+    display={'flex'}
+    alignItems={'center'}
+    height={65}
+    css={props => `
         ul {
             list-style: none;
             padding: 0;
@@ -25,6 +25,9 @@ export default ({
         }
         
         ${css ? (typeof css === 'function' ? css(props) : css) : ''}
-    `,
-  ...others
-}, children)
+    `}
+    {...others}
+  >
+    {children}
+  </Sigma>
+);

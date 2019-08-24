@@ -7,8 +7,9 @@ const Container = ({
   fluid,
   css,
   ...others
-}) => React.createElement(Sigma, {
-  css: props => `
+}) => (
+  <Sigma
+    css={props => `
         width: 100%;
         padding-left: 15px;
         padding-right: 15px;
@@ -18,40 +19,51 @@ const Container = ({
         `, getValue('breakpoints', props))}
         
         ${css ? (typeof css === 'function' ? css(props) : css) : ''}
-    `,
-  ...(fluid ? {} : {m: '0 auto'}),
-  ...others
-}, children)
+    `}
+    {...fluid ? {} : {m: '0 auto'}}
+    {...others}
+  >
+    {children}
+  </Sigma>
+);
 
 const Row = ({
   children,
   css,
   ...others
-}) => React.createElement(Sigma, {
-  css: props => `
-        display: flex;
-        flex-wrap: wrap;
-        margin-right: -15px;
-        margin-left: -15px;
-        ${css ? (typeof css === 'function' ? css(props) : css) : ''}
-    `,
-  ...others
-}, children)
+}) => (
+  <Sigma
+    css={props => `
+      display: flex;
+      flex-wrap: wrap;
+      margin-right: -15px;
+      margin-left: -15px;
+      ${css ? (typeof css === 'function' ? css(props) : css) : ''}
+    `}
+    {...others}
+  >
+    {children}
+  </Sigma>
+);
 
 const Col = ({
   children,
   css,
   ...others
-}) => React.createElement(Sigma, {
-  css: props => `
-        padding-left: 15px;
-        padding-right: 15px;
-        min-height: 1px;
-        width: 100%;
-        ${css ? (typeof css === 'function' ? css(props) : css) : ''}
-    `,
-  ...others
-}, children)
+}) => (
+  <Sigma
+    css={props => `
+      padding-left: 15px;
+      padding-right: 15px;
+      min-height: 1px;
+      width: 100%;
+      ${css ? (typeof css === 'function' ? css(props) : css) : ''}
+    `}
+    {...others}
+  >
+    {children}
+  </Sigma>
+);
 
 export {
   Container,

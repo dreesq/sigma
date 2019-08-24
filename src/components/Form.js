@@ -2,10 +2,14 @@ import Sigma from './Sigma'
 import React from 'react'
 import {shadeColor, getValue} from '../utils'
 
-const Form = ({children, ...others}) => React.createElement(Sigma, {
-  as: 'form',
+const Form = ({
+  children,
   ...others
-}, children)
+}) => (
+  <Sigma as={'form'} {...others}>
+    {children}
+  </Sigma>
+);
 
 const sizes = {
   small: {
@@ -28,52 +32,66 @@ const Input = ({
   error = false,
   as = 'input',
   ...others
-}) => React.createElement(Sigma, {
-  as: as,
-  ...sizes[size],
-  width: '100%',
-  borderRadius: 4,
-  bg: props => `${!error ? 'transparent' : shadeColor(getValue('colors.danger', props), 200)}`,
-  border: props => `1px solid ${error ? getValue('colors.danger', props) : '#dedede'}`,
-  outline: 'none',
-  ...(as === 'select' ? {
-    boxSizing: 'content-box',
-    height: sizes[size].p[0] * 2 + sizes[size].fontSize,
-    textIndent: sizes[size].p[1] - 5,
-    p: 0
-  } : {}),
-  ...(as === 'textarea' ? {
-    resize: 'vertical',
-    minHeight: 90
-  } : {}),
-  ...others
-}, children)
+}) => (
+  <Sigma
+    as={as}
+    {...sizes[size]}
+    width={'100%'}
+    borderRadius={4}
+    bg={props => `${!error ? 'transparent' : shadeColor(getValue('colors.danger', props), 200)}`}
+    border={props => `1px solid ${error ? getValue('colors.danger', props) : '#dedede'}`}
+    outline={'none'}
+    {...(as === 'select' ? {
+      boxSizing: 'content-box',
+      height: sizes[size].p[0] * 2 + sizes[size].fontSize,
+      textIndent: sizes[size].p[1] - 5,
+      p: 0
+    } : {})}
+    {...(as === 'textarea' ? {
+      resize: 'vertical',
+      minHeight: 90
+    } : {})}
+    {...others}
+  >
+    {children}
+  </Sigma>
+);
 
 const Label = ({
   children,
   error = false,
   ...others
-}) => React.createElement(Sigma, {
-  as: 'label',
-  d: 'block',
-  mb: 10,
-  fontWeight: '500',
-  ...(error ? {color: props => getValue('colors.danger', props)} : {}),
-  ...others
-}, children)
+}) => (
+  <Sigma
+    as={'label'}
+    d={'block'}
+    mt={10}
+    fontWeight={'500'}
+    {...(error ? {color: props => getValue('colors.danger', props)} : {})}
+  >
+    {children}
+  </Sigma>
+);
 
-const Group = ({children, css, ...others}) => React.createElement(Sigma, {
-  mb: 12,
-  css: props => `
+const Group = ({
+  children,
+  css,
+  ...others
+}) => (
+  <Sigma
+    mb={12}
+    css={props => `
         .sg-text-component {
             font-size: 14px;
             margin-top: 4px;
         }
         
         ${css ? (typeof css === 'function' ? css(props) : css) : ''}
-    `,
-  ...others
-}, children)
+    `}
+  >
+    {children}
+  </Sigma>
+);
 
 export {
   Form,

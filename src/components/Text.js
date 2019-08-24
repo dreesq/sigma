@@ -9,14 +9,18 @@ export default ({
   css,
   className,
   ...others
-}) => React.createElement(Sigma, {
-  as: 'p',
-  className: `sg-text-component ${className}`,
-  ...(color ? {color: props => getValue(`colors.${color}`, props)} : {}),
-  ...(ellipsis ? {
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'pre'
-  } : {}),
-  ...others
-}, children)
+}) => (
+  <Sigma
+    as={'p'}
+    className={`sg-text-component ${className}`}
+    {...(color ? {color: props => getValue(`colors.${color}`, props)} : {})}
+    {...(ellipsis ? {
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+      whiteSpace: 'pre'
+    } : {})}
+    {...others}
+  >
+    {children}
+  </Sigma>
+);

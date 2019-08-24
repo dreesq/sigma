@@ -2,11 +2,6 @@ import React, {Component} from 'react'
 import Sigma from './Sigma'
 
 export default class OutsideClick extends Component {
-  constructor(props) {
-    super(props)
-    this.onClick = this.onClick.bind(this)
-  }
-
   componentDidMount() {
     document.addEventListener('mousedown', this.onClick)
   }
@@ -15,7 +10,7 @@ export default class OutsideClick extends Component {
     document.removeEventListener('mousedown', this.onClick)
   }
 
-  onClick(e) {
+  onClick = e => {
     const {onOutsideClick} = this.props
 
     if (this.wrapper && !this.wrapper.contains(e.target)) {
@@ -26,9 +21,13 @@ export default class OutsideClick extends Component {
   render() {
     const {children, ...others} = this.props
 
-    return React.createElement(Sigma, {
-      ref: ref => this.wrapper = ref,
-      ...others
-    }, children)
+    return (
+      <Sigma
+        ref={ref => this.wrapper = ref}
+        {...others}
+      >
+        {children}
+      </Sigma>
+    );
   }
 }

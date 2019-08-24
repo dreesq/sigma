@@ -2,19 +2,15 @@ import React, {Component} from 'react'
 import Sigma from './Sigma'
 import Button from './Button'
 
-const e = React.createElement
-
-class Pagination extends Component {
+export default class Pagination extends Component {
   constructor(props) {
     super(props)
     this.state = {
       currentPage: props.currentPage || 1
     }
-
-    this.onChange = this.onChange.bind(this)
   }
 
-  async onChange(page) {
+  onChange = async page => {
     const {onChange} = this.props
     typeof onChange === 'function' && await onChange(page)
     this.setState({
@@ -51,41 +47,50 @@ class Pagination extends Component {
       ...others
     } = this.props
 
-    const range = this.generateRange(currentPage, totalPages)
+    const range = this.generateRange(currentPage, totalPages);
 
-    const entries = [
-      e(Button, {
-        onClick: e => currentPage - 1 > 0 ? this.onChange(currentPage - 1) : null,
-        disabled: currentPage - 1 <= 0,
-        size: 'small',
-        mr: 5,
-        key: '-1',
-        p: [11, 12]
-      }, prevButton),
-
-      ...range.map((page, index) => e(Button, {
-        disabled: page === '...',
-        inverted: page !== currentPage,
-        size: 'small',
-        p: [10, 0],
-        key: index,
-        width: 30,
-        textAlign: 'center',
-        onClick: e => page !== '...' && this.onChange(page),
-        mr: 5
-      }, page)),
-
-      e(Button, {
-        onClick: e => currentPage + 1 <= totalPages ? this.onChange(currentPage + 1) : null,
-        disabled: currentPage + 1 > totalPages,
-        p: [11, 12],
-        key: '+1',
-        size: 'small'
-      }, nextButton)
-    ]
-
-    return e(Sigma, others, entries)
+    return (
+      <Sigma
+        {...others}
+        >
+        <Button
+          onClick={e => currentPage - 1 > 0 ? this.onChange(currentPage - 1) : null}
+          disabled={currentPage - 1 <= 0}
+          size={'small'}
+          mr={5}
+          key={'-1'}
+          p={[11, 12]}
+        >
+          {prevButton}
+        </Button>
+        {
+          range.map((page, index) => (
+            <Button
+              disabled={page === '...'}
+              inverted={page !== currentPage}
+              size={'small'}
+              p={[10, 0]}
+              key={index}
+              width={30}
+              textAlign={'center'}
+              mr={5}
+              onClick={e => page !== '...' && this.onChange(page)}
+            >
+              {page}
+            </Button>
+          ))
+        }
+        <Button
+          onClick={e => currentPage + 1 <= totalPages ? this.onChange(currentPage + 1) : null}
+          disabled={currentPage + 1 > totalPages}
+          size={'small'}
+          mr={5}
+          key={'+1'}
+          p={[11, 12]}
+        >
+          {nextButton}
+        </Button>
+      </Sigma>
+    )
   }
 }
-
-export default Pagination
