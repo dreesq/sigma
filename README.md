@@ -1,31 +1,34 @@
-# sigma-1
+<p align="center"> 
+    <img src="https://user-images.githubusercontent.com/7228512/61580398-714ecd80-ab1a-11e9-8bcb-4677a128aa79.png"/>
+</p>
 
-> 
+<p align="center">
+    <a href="https://dreesq.github.io/sigma/docs/demo/" target="_blank">Demo</a>  
+</p>
 
-[![NPM](https://img.shields.io/npm/v/sigma-1.svg)](https://www.npmjs.com/package/sigma-1) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+Sigma is an UI library made using `styled-components`. You can install it using `npm install @dreesq/sigma` command.
 
-## Install
+The library is built using the core component `Sigma`. Here's a basic example on how to use the component:
 
-```bash
-npm install --save sigma-1
+```js
+import {render} from 'react-dom';
+import {Sigma} from '@dreesq/sigma';
+
+const root = (
+    <Sigma
+        width={100}
+        height={100}
+        background={'red'}
+        borderRadius={'50%'}
+        cursor={'pointer'}
+        hover={`
+            background: yellow;
+        `}  
+    />
+);
+
+render(root, document.querySelector('#root'));
 ```
 
-## Usage
+In addition to the core component, the library provides additional useful components such as ```Grid``` and ```Base```.
 
-```jsx
-import React, { Component } from 'react'
-
-import MyComponent from 'sigma-1'
-
-class Example extends Component {
-  render () {
-    return (
-      <MyComponent />
-    )
-  }
-}
-```
-
-## License
-
-MIT © [bthe0](https://github.com/bthe0)
