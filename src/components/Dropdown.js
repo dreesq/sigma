@@ -54,6 +54,7 @@ export default class Dropdown extends Component {
               position={'absolute'}
               width={'100%'}
               mt={4}
+              left={0}
               zIndex={'2'}
               onOutsideClick={this.onOutsideClick}
             >

@@ -59,7 +59,7 @@ export default class Root extends Component {
                         {
                           open => (
                             <Fragment>
-                              <Button size={'small'} inverted mr={11}>Dropdown <span dangerouslySetInnerHTML={{__html: open ? '&#9652;' : '&#9662;'}} /></Button>
+                              <Text color={'primary'} mr={14} cursor={'pointer'}>Dropdown <span dangerouslySetInnerHTML={{__html: open ? '&#9652;' : '&#9662;'}} /></Text>
                               <Card p={[19, 14]} w={'220px !important'}>
                                   <S as={'ul'}>
                                     <S as={'li'} mb={4}>Dropdown Content</S>
@@ -157,63 +157,66 @@ export default class Root extends Component {
               </Col>
               <Col md={'width: 60%'}>
                 <Card mt={20}>
-                  <Filters
-                    fields={[
-                      {
-                        name: 'name',
-                        type: 'text',
-                        defaultValue: 'Default',
-                        label: 'Value',
-                        props: {
-                          col: {
-                            width: '50%',
-                            pr: 10
-                          },
-                          input: {
-                            pl: 45,
-                            icon: (
-                              <S
-                                width={30}
-                                height={30}
-                                bg={'#f7f7f7'}
-                                textAlign={'center'}
-                                d={'block'}
-                                borderRadius={30}
-                                lineHeight={30}
-                                position={'absolute'}
-                                left={8}
-                                bottom={10}
-                              >
-                                A
-                              </S>
-                            )
+                  <S position={'relative'}>
+                    <Filters
+                      fields={[
+                        {
+                          name: 'name',
+                          type: 'text',
+                          defaultValue: 'Default',
+                          label: 'Value',
+                          props: {
+                            col: {
+                              width: '50%',
+                              pr: 10
+                            },
+                            input: {
+                              pl: 45,
+                              icon: (
+                                <S
+                                  width={30}
+                                  height={30}
+                                  bg={'#f7f7f7'}
+                                  textAlign={'center'}
+                                  d={'block'}
+                                  borderRadius={30}
+                                  lineHeight={30}
+                                  position={'absolute'}
+                                  left={8}
+                                  bottom={10}
+                                >
+                                  A
+                                </S>
+                              )
+                            }
+                          }
+                        },
+                        {
+                          name: 'second',
+                          type: 'text',
+                          defaultValue: '',
+                          props: {
+                            col: {
+                              pr: 10,
+                              width: '50%'
+                            }
+                          }
+                        },
+                        {
+                          name: 'third',
+                          type: 'text',
+                          defaultValue: 'Second default',
+                          label: 'Third',
+                          props: {
+                            col: {
+                              width: '50%'
+                            }
                           }
                         }
-                      },
-                      {
-                        name: 'second',
-                        type: 'text',
-                        defaultValue: '',
-                        props: {
-                          col: {
-                            pr: 10,
-                            width: '50%'
-                          }
-                        }
-                      },
-                      {
-                        name: 'third',
-                        type: 'text',
-                        defaultValue: 'Second default',
-                        label: 'Third',
-                        props: {
-                          col: {
-                            width: '50%'
-                          }
-                        }
-                      }
-                    ]}
-                  />
+                      ]}
+                    />
+                  </S>
+
                 </Card>
                 <Card mt={20}>
                   <Alert>

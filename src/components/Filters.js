@@ -46,7 +46,6 @@ export default class Filters extends Component {
 
     onFilter && await onFilter(this.getFilters())
     this.setQuery(values);
-    this.dropdown.toggle();
   }
 
   renderField = (field, key) => {
@@ -174,18 +173,22 @@ export default class Filters extends Component {
       title = 'Filter',
       btnText = 'Filter',
       withClear = true,
-      onFilter,
       handleText = 'Filter',
-      clearFiltersText = 'Clear Filters'
+      clearFiltersText = 'Clear Filters',
+      props = {
+        dropdown: {},
+        trigger: {},
+        content: {}
+      }
     } = this.props;
 
     return (
-      <Dropdown ref={ref => this.dropdown = ref}>
+      <Dropdown ref={ref => this.dropdown = ref} position={'static'} {...props.dropdown}>
         {
           open => (
             <Fragment>
-              <Button>{btnText}</Button>
-              <Card width={'100%'} pt={12}>
+              <Button {...props.trigger}>{btnText}</Button>
+              <Card width={'100%'} pt={12} {...props.content}>
                 <Sigma alignItems={'center'} d={'flex'}>
                   {title && <h3>{title}</h3>}
                   <Sigma
@@ -203,7 +206,7 @@ export default class Filters extends Component {
                     </Row>
                   </Container>
                   <Sigma d={'flex'} justifyContent={'flex-end'}>
-                    <Button inverted mr={5} onClick={this.clearFilters}>{clearFiltersText}</Button>
+                    {withClear && <Button inverted mr={5} onClick={this.clearFilters}>{clearFiltersText}</Button>}
                     <Button onClick={this.handle}>{handleText}</Button>
                   </Sigma>
                 </Form>

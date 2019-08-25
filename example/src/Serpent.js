@@ -7,7 +7,11 @@ import {
   Card,
   Base,
   ActionForm,
-  ActionLoader
+  ActionLoader,
+  AutoFilter,
+  Container,
+  Row,
+  Col
 } from '@dreesq/sigma'
 
 export default class extends Component {
@@ -29,32 +33,41 @@ export default class extends Component {
         <Context client={this.client} debug>
           <Base />
           <ActionLoader />
-          <Card width={400} m={'24px auto'}>
-            <ActionForm
-              action={'testAction'}
-              withLoading
-              withAlert
-              render={{
-                name() {
-                  return (
-                    <h1>Overwritten field</h1>
-                  )
-                }
-              }}
-              props={{
-                handle: {
-                  block: true,
-                  color: 'secondary'
-                },
-                input: {
+          <Container>
+            <Row mt={32}>
+              <Col width={'40%'}>
+                <Card>
+                  <ActionForm
+                    action={'testAction'}
+                    withLoading
+                    withAlert
+                    render={{
+                      name() {
+                        return (
+                          <h1>Name field</h1>
+                        )
+                      }
+                    }}
+                    props={{
+                      handle: {
+                        block: true,
+                        color: 'secondary'
+                      },
+                      input: {
 
-                }
-              }}
-              defaultValues={{
-                name: 'Name',
-                type: 'Default Value'
-              }} />
-          </Card>
+                      }
+                    }}
+                    defaultValues={{
+                      name: 'Name',
+                      type: 'Default Value'
+                    }} />
+                </Card>
+              </Col>
+              <Col width={'60%'} p={0}>
+                <AutoFilter />
+              </Col>
+            </Row>
+          </Container>
         </Context>
       </ThemeProvider>
     )
