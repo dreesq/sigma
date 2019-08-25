@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import Serpent from '@dreesq/serpent-client'
 import axios from 'axios'
 import {ThemeProvider} from 'styled-components'
@@ -11,7 +11,8 @@ import {
   AutoFilter,
   Container,
   Row,
-  Col
+  Col,
+  Sigma
 } from '@dreesq/sigma'
 
 export default class extends Component {
@@ -64,7 +65,29 @@ export default class extends Component {
                 </Card>
               </Col>
               <Col width={'60%'} p={0}>
-                <AutoFilter />
+                <AutoFilter
+                  action={'getPosts'}
+                  withSearch
+                  filters={[
+                    {
+                      type: 'text',
+                      name: 'title',
+                      placeholder: 'Title'
+                    }
+                  ]}
+                  fields={[
+                    ['_id', 'Id', (value, row) => (
+                      <Fragment>
+                        {row.title}
+                        <br />
+                        <Sigma fontStyle={'italic'} fontSize={11}>{value}</Sigma>
+                      </Fragment>
+                    ), true],
+                    ['title', 'Title', null, true],
+                    [null, '', value => 'XXXX']
+                  ]}
+                  withPagination
+                />
               </Col>
             </Row>
           </Container>

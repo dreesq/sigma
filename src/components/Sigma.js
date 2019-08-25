@@ -114,4 +114,4 @@ const helpers = [
   ...attrHelpers
 ]
 
-export default styled.div(...helpers);
+export default styled.div(...helpers)

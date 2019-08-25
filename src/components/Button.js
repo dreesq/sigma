@@ -46,7 +46,7 @@ export default ({
             border-color: ${shadeColor(getValue(`colors.${color}`, props), 20)};
             color: ${shadeColor(getValue(`colors.${color}`, props), 20)};
             ${hover ? (typeof hover === 'function' ? hover(props) : hover) : ''}
-        `,
+        `
     } : {
       color: '#fff',
       bg: props => getValue(`colors.${color}`, props),
@@ -55,7 +55,7 @@ export default ({
             ${hover ? (typeof hover === 'function' ? hover(props) : hover) : ''}
         `
     })}
-    className={ `${loading ? 'loading' : ''}${className}`}
+    className={`${loading ? 'loading' : ''}${className}`}
     {...(block ? {width: '100%'} : {})}
     {...(disabled ? {
       cursor: 'not-allowed',

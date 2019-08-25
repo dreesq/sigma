@@ -3,12 +3,12 @@ import {
   Sigma
 } from '../components'
 
-let Constants = {};
+let Constants = {}
 
 try {
-  const Serpent = require('@dreesq/serpent-client');
-  Constants = Serpent.Constants;
-} catch(e) {
+  const Serpent = require('@dreesq/serpent-client')
+  Constants = Serpent.Constants
+} catch (e) {
 
 }
 
@@ -86,7 +86,7 @@ class ActionLoader extends Component {
         transition={'.4s ease-in'}
         display={open ? 'block' : 'hidden'}
       />
-    );
+    )
   }
 }
 

@@ -1,10 +1,11 @@
-import React, {Component, Fragment} from 'react';
-import Card from './Card';
-import Dropdown from './Dropdown';
-import Button from './Button';
-import Sigma from './Sigma';
-import {Input, Group, Label, Form} from './Form';
-import {Col, Row, Container} from './Grid';
+import React, {Component, Fragment} from 'react'
+import Card from './Card'
+import Dropdown from './Dropdown'
+import Button from './Button'
+import Sigma from './Sigma'
+import Toggle from './Toggle'
+import {Input, Group, Label, Form} from './Form'
+import {Col, Row, Container} from './Grid'
 
 export default class Filters extends Component {
   constructor(props) {
@@ -16,13 +17,14 @@ export default class Filters extends Component {
   }
 
   getFilters = () => {
-    const {values} = this.state;
-    return values;
+    const {values} = this.state
+    return values
   };
 
-  onChange = field => {
+  onChange = (field, isCheckbox) => {
     return e => {
-      const {value} = e.target
+      const {target} = e
+      const value = isCheckbox ? (target.checked ? 1 : 0) : target.value
 
       this.setState(state => {
         state.values[field] = value
@@ -32,26 +34,43 @@ export default class Filters extends Component {
   }
 
   async componentDidMount() {
-    const {fields = [], onFilter} = this.props;
-    const parsed = this.parseQueryString();
-    const values = fields.reduce((all, current) => {
-      all[current.name] = parsed[current.name] ? parsed[current.name] : (current.defaultValue ? current.defaultValue : '');
-      return all;
-    }, {});
+    const {fields = [], extra = [], onFilter} = this.props
+    const parsed = this.parseQueryString()
+    const values = [...fields, ...extra].reduce((all, current) => {
+      current = typeof current === 'string' ? {
+        name: current
+      } : current
+
+      all[current.name] = parsed[current.name] ? parsed[current.name] : (current.defaultValue ? current.defaultValue : '')
+      return all
+    }, {})
 
     this.setState({
       fields,
       values
-    });
+    })
 
-    onFilter && await onFilter(this.getFilters())
-    this.setQuery(values);
+    onFilter && await onFilter(values, true)
+    this.setQuery(values)
   }
 
+  setFilter = (key, value) => {
+    const {onFilter} = this.props
+
+    this.setState(state => {
+      state.values[key] = value
+      return state
+    }, async () => {
+      const {values} = this.state
+      onFilter && await onFilter(values)
+      this.setQuery(values)
+    })
+  };
+
   renderField = (field, key) => {
-    const {values} = this.state;
-    const {props = { input: {}, col: {}, label: {} }, label, name, placeholder} = field;
-    let fieldEl;
+    const {values} = this.state
+    const {props = { input: {}, col: {}, label: {} }, label, name, placeholder} = field
+    let fieldEl
 
     switch (field.type) {
       case 'select':
@@ -70,22 +89,36 @@ export default class Filters extends Component {
                   <option key={key}>
                     {value}
                   </option>
-                );
+                )
               })
             }
           </Input>
-        );
+        )
+        break
+
+      case 'toggle':
+        fieldEl = (
+          <Toggle
+            label={placeholder}
+            onChange={this.onChange(field.name, true)}
+            checked={+values[name] === 1}
+            key={key}
+            {...props.input}
+          />
+        )
+        break
 
       default:
         fieldEl = (
           <Input
             key={key}
             value={values[name]}
-            placeholder={field.name}
+            placeholder={placeholder}
             onChange={this.onChange(field.name)}
             {...props.input}
           />
-        );
+        )
+        break
     }
 
     return (
@@ -95,80 +128,80 @@ export default class Filters extends Component {
           {fieldEl}
         </Group>
       </Col>
-    );
+    )
   };
 
   handle = async e => {
-    e.preventDefault();
-    const {values} = this.state;
-    const {onFilter} = this.props;
-    onFilter && await onFilter(values);
-    console.log(values);
-    this.setQuery(values);
-    this.dropdown.toggle();
+    e.preventDefault()
+    const {values} = this.state
+    const {onFilter} = this.props
+    onFilter && await onFilter(values)
+    console.log(values)
+    this.setQuery(values)
+    this.dropdown.toggle()
   };
 
   setQuery = (obj = {}) => {
-    let str = [];
+    let str = []
     for (let key in obj) {
       if (obj[key] === '') {
-        continue;
+        continue
       }
 
       if (obj.hasOwnProperty(key)) {
-        str.push(`${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`);
+        str.push(`${encodeURIComponent(key)}=${encodeURIComponent(obj[key]).replace(/%20/g, '+')}`)
       }
     }
 
-    str = str.join('&');
-    str = !str ? '/' : `?${str}`;
+    str = str.join('&')
+    str = !str ? '/' : `?${str}`
 
     if (str === window.location.search) {
-      return;
+      return
     }
 
-    window.history.pushState('', '', str);
+    window.history.pushState('', '', str)
   };
 
   parseQueryString = () => {
-    const qs = window.location.search.replace('?', '');
-    const items = qs.split('&');
+    const qs = window.location.search.replace('?', '')
+    const items = qs.split('&')
 
     return items.reduce((data, item) => {
-      const [key, value] = item.split('=');
+      let [key, value] = item.split('=')
+      value = decodeURIComponent(value && value.replace(/\+/g, '%20'))
 
-      if(data[key] !== undefined) {
-        if(!Array.isArray(data[key])) {
-          data[key] = [ data[key] ]
+      if (data[key] !== undefined) {
+        if (!Array.isArray(data[key])) {
+          data[key] = [data[key]]
         }
 
         data[key].push(value)
-      }
-      else {
+      } else {
         data[key] = value
       }
 
       return data
-    }, {});
+    }, {})
   };
 
   clearFilters = e => {
-    e.preventDefault();
-    const {onFilter} = this.props;
+    e.preventDefault()
+    const {onFilter} = this.props
     this.setState(prevState => {
       for (let key in prevState.values) {
-        prevState.values[key] = '';
+        prevState.values[key] = ''
       }
 
-      return prevState;
+      return prevState
     }, async () => {
-      this.setQuery({});
-      onFilter && await onFilter({});
-    });
+      this.setQuery({})
+      onFilter && await onFilter({})
+    })
   };
 
   render() {
-    const {fields} = this.state;
+    const {fields} = this.state
     const {
       title = 'Filter',
       btnText = 'Filter',
@@ -180,7 +213,7 @@ export default class Filters extends Component {
         trigger: {},
         content: {}
       }
-    } = this.props;
+    } = this.props
 
     return (
       <Dropdown ref={ref => this.dropdown = ref} position={'static'} {...props.dropdown}>
@@ -215,6 +248,6 @@ export default class Filters extends Component {
           )
         }
       </Dropdown>
-    );
+    )
   }
 }

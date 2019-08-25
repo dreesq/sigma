@@ -1,4 +1,4 @@
-const {config, utils} = require('@dreesq/serpent')
+const {config, utils, action} = require('@dreesq/serpent')
 
 const form = {
   name: {
@@ -34,3 +34,11 @@ config({
 )
 
 utils.autoCrud('Post')
+
+action('getPosts', utils.autoFilter('Post', {
+  pagination: true,
+  limit: 10,
+  before(query, filters) {
+    filters.search && query.where('title', { $regex: new RegExp(filters.search), $options: 'i' })
+  }
+}))

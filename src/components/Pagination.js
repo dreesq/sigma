@@ -47,12 +47,12 @@ export default class Pagination extends Component {
       ...others
     } = this.props
 
-    const range = this.generateRange(currentPage, totalPages);
+    const range = this.generateRange(currentPage, totalPages)
 
     return (
       <Sigma
         {...others}
-        >
+      >
         <Button
           onClick={e => currentPage - 1 > 0 ? this.onChange(currentPage - 1) : null}
           disabled={currentPage - 1 <= 0}
@@ -69,9 +69,9 @@ export default class Pagination extends Component {
               disabled={page === '...'}
               inverted={page !== currentPage}
               size={'small'}
-              p={[10, 0]}
+              p={[10, 5]}
               key={index}
-              width={30}
+              minWidth={30}
               textAlign={'center'}
               mr={5}
               onClick={e => page !== '...' && this.onChange(page)}

@@ -1,5 +1,5 @@
-import React from 'react';
-import Sigma from './Sigma';
+import React from 'react'
+import Sigma from './Sigma'
 
 export default ({
   children,

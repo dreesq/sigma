@@ -9,7 +9,7 @@ const Form = ({
   <Sigma as={'form'} {...others}>
     {children}
   </Sigma>
-);
+)
 
 const sizes = {
   small: {
@@ -32,9 +32,10 @@ const Input = ({
   error = false,
   as = 'input',
   icon = '',
+  container = {},
   ...others
 }) => (
-  <Sigma position={'relative'}>
+  <Sigma position={'relative'} {...container}>
     <Sigma
       as={as}
       {...sizes[size]}
@@ -58,7 +59,7 @@ const Input = ({
     />
     {icon && icon}
   </Sigma>
-);
+)
 
 const Label = ({
   children,
@@ -75,7 +76,7 @@ const Label = ({
   >
     {children}
   </Sigma>
-);
+)
 
 const Group = ({
   children,
@@ -95,7 +96,7 @@ const Group = ({
   >
     {children}
   </Sigma>
-);
+)
 
 export {
   Form,

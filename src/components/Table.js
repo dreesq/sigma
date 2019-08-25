@@ -33,7 +33,7 @@ export default ({
         ${css ? (typeof css === 'function' ? css(props) : css) : ''}
     `}
     {...others}
-    >
+  >
     {children}
   </Sigma>
-);
+)

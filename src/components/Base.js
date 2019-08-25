@@ -52,7 +52,8 @@ const base = css`
 
         &:before {
             content: '';
-            background: rgba(230, 230, 230, 0.7);
+            background: rgba(230, 230, 230, 0.3);
+            border-radius: 4px;
             width: 100%;
             height: 100%;
             z-index: 1;

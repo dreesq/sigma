@@ -28,6 +28,6 @@ export default class OutsideClick extends Component {
       >
         {children}
       </Sigma>
-    );
+    )
   }
 }

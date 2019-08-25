@@ -10,7 +10,7 @@ export default class Dropdown extends Component {
     }
   }
 
-  onOutsideClick = e =>  {
+  onOutsideClick = e => {
     if (this.trigger && this.trigger.contains(e.target)) {
       return
     }
@@ -18,7 +18,7 @@ export default class Dropdown extends Component {
     this.toggle(false)
   }
 
-  toggle = open =>  {
+  toggle = open => {
     let {open: opened} = this.state
     let value = typeof open === 'undefined' ? !opened : open
 
@@ -34,7 +34,7 @@ export default class Dropdown extends Component {
     let {children, ...others} = this.props
     const {open} = this.state
 
-    children = children(open).props.children;
+    children = children(open).props.children
 
     return (
       <Sigma
@@ -63,6 +63,6 @@ export default class Dropdown extends Component {
           )
         }
       </Sigma>
-    );
+    )
   }
 }

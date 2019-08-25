@@ -26,7 +26,7 @@ class ActionForm extends Component {
       errors: {},
       data: {},
       form: {}
-    };
+    }
   }
 
   componentDidMount() {
@@ -83,13 +83,13 @@ class ActionForm extends Component {
       return null
     }
 
-    const label = this.getLabel(field);
+    const label = this.getLabel(field)
 
     return (
       <Label error={!!errors[field.name]} {...props}>
         {label}
       </Label>
-    );
+    )
   }
 
   _renderField = (field, props) => {
@@ -119,11 +119,11 @@ class ActionForm extends Component {
                   <option key={key}>
                     {value}
                   </option>
-                );
+                )
               })
             }
           </Input>
-        );
+        )
 
       case 'file':
         return (
@@ -134,7 +134,7 @@ class ActionForm extends Component {
             onChange={this.onChange(field.name)}
             {...props}
           />
-        );
+        )
 
       case 'textarea':
         return (
@@ -145,7 +145,7 @@ class ActionForm extends Component {
             onChange={this.onChange(field.name)}
             {...props}
           />
-        );
+        )
 
       default:
         return (
@@ -155,7 +155,7 @@ class ActionForm extends Component {
             onChange={this.onChange(field.name)}
             {...props}
           />
-        );
+        )
     }
   };
 
@@ -301,7 +301,7 @@ class ActionForm extends Component {
       >
         {handleText}
       </Button>
-    );
+    )
   }
 
   _renderAlert = props => {
@@ -325,7 +325,7 @@ class ActionForm extends Component {
           <Sigma fontSize={18} dangerouslySetInnerHTML={{__html: '&times'}} />
         </Sigma>
       </Alert>
-    );
+    )
   }
 
   _renderCancelBtn = props => {
@@ -345,7 +345,7 @@ class ActionForm extends Component {
       >
         {cancelText}
       </Button>
-    );
+    )
   }
 
   _renderFormGroup = (field, key, props) => {
@@ -372,7 +372,7 @@ class ActionForm extends Component {
       <Group key={key} {...this._makeProps(props, 'group', field)}>
         {rendered}
       </Group>
-    );
+    )
   };
 
   _renderFormElement = (entry, key, props = {}, globalProps = {}) => {
@@ -417,7 +417,7 @@ class ActionForm extends Component {
           {onCancel && this._renderCancelBtn(props)}
           {this._renderHandleBtn(props)}
         </Form>
-      );
+      )
     }
 
     return (
@@ -438,7 +438,7 @@ class ActionForm extends Component {
           }
         </Form>
       </Container>
-    );
+    )
   }
 }
 

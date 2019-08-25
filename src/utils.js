@@ -2,13 +2,14 @@ import theme from './theme'
 import deepmerge from 'deepmerge'
 
 /**
- * Given props and key returns value
+ * Get value by dot notation
  * @param key
- * @param props
+ * @param value
+ * @returns {*|Array|string[]}
  */
 
-export const getValue = (key, props = {}) => {
-  let current = deepmerge(theme, props.theme || {})
+export const get = (key, value = {}) => {
+  let current = value
   key = key.split('.')
 
   while (key.length) {
@@ -21,6 +22,18 @@ export const getValue = (key, props = {}) => {
     current = current[currentKey]
   }
 
+  return current
+}
+
+/**
+ * Given props and key returns value
+ * @param key
+ * @param props
+ */
+
+export const getValue = (key, props = {}) => {
+  let current = deepmerge(theme, props.theme || {})
+  current = get(key, current)
   return typeof current !== 'undefined' ? current : key
 }
 

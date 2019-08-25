@@ -22,7 +22,8 @@ import {
   Pagination,
   Dropdown,
   Footer,
-  Filters
+  Filters,
+  Toggle
 } from '@dreesq/sigma'
 
 export default class Root extends Component {
@@ -61,11 +62,11 @@ export default class Root extends Component {
                             <Fragment>
                               <Text color={'primary'} mr={14} cursor={'pointer'}>Dropdown <span dangerouslySetInnerHTML={{__html: open ? '&#9652;' : '&#9662;'}} /></Text>
                               <Card p={[19, 14]} w={'220px !important'}>
-                                  <S as={'ul'}>
-                                    <S as={'li'} mb={4}>Dropdown Content</S>
-                                    <S as={'li'} mb={4}>Dropdown Content 2</S>
-                                    <S as={'li'} mb={14}>Dropdown Content 3</S>
-                                  </S>
+                                <S as={'ul'}>
+                                  <S as={'li'} mb={4}>Dropdown Content</S>
+                                  <S as={'li'} mb={4}>Dropdown Content 2</S>
+                                  <S as={'li'} mb={14}>Dropdown Content 3</S>
+                                </S>
                                 <Button block size={'small'}>Logout</Button>
                               </Card>
                             </Fragment>
@@ -100,7 +101,10 @@ export default class Root extends Component {
                 </S>
 
                 <Card>
-                  <h4>Table</h4>
+                  <S d={'flex'} alignItems={'center'}>
+                    <h4>Table</h4>
+                    <Toggle ml={'auto'} color={'success'} label={'Label'} />
+                  </S>
                   <S mb={16}>
                     <Text d={'inline'} mr={4}>Here's a</Text>
                     <Tooltip>
@@ -207,6 +211,17 @@ export default class Root extends Component {
                           type: 'text',
                           defaultValue: 'Second default',
                           label: 'Third',
+                          props: {
+                            col: {
+                              width: '50%',
+                              pr: 10
+                            }
+                          }
+                        },
+                        {
+                          name: 'fifth',
+                          type: 'toggle',
+                          label: 'Toggle',
                           props: {
                             col: {
                               width: '50%'

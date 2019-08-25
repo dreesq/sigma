@@ -25,7 +25,7 @@ const Container = ({
   >
     {children}
   </Sigma>
-);
+)
 
 const Row = ({
   children,
@@ -44,7 +44,7 @@ const Row = ({
   >
     {children}
   </Sigma>
-);
+)
 
 const Col = ({
   children,
@@ -63,7 +63,7 @@ const Col = ({
   >
     {children}
   </Sigma>
-);
+)
 
 export {
   Container,

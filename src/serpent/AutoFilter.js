@@ -1,37 +1,134 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import Sigma from '../components/Sigma'
 import Pagination from '../components/Pagination'
-import Filters from '../components/Filters';
-import {Input} from '../components/Form';
-import {Container, Row, Col} from '../components/Grid';
+import Table from '../components/Table'
+import Card from '../components/Card'
+import Filters from '../components/Filters'
+import Alert from '../components/Alert'
+import Button from '../components/Button'
+import {Input} from '../components/Form'
+import {Container, Row, Col} from '../components/Grid'
+import {get} from '../utils'
 
 class AutoFilter extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      page: 1,
+      search: '',
       filters: {},
       sorts: {},
       pagination: {},
       data: [],
+      errors: false,
       loading: true
     }
   }
 
-  async load(page = 1, filters = {}, sorts = {}) {
+  onFilter = async (filters = {}, isMount = false) => {
+    const {page, ...others} = filters
+    await this.load(isMount ? (+page || 1) : 1, others, {}, isMount)
+  };
+
+  async load(page = 1, filters = {}, sorts = {}, isMount) {
+    const {client} = this.context
+    const {action, withPagination = false} = this.props
+
     this.setState({
       loading: true
     })
 
-    this.setState({
+    const {data, errors} = await client[action]({
+      page,
+      filters,
+      sorts
+    })
+
+    if (errors) {
+      return this.setState({
+        loading: false,
+        errors
+      })
+    }
+
+    const state = {
       filters,
       sorts,
+      page,
       data: [],
-      loading: false
-    })
+      loading: false,
+      errors: false
+    }
+
+    if (isMount && filters.search) {
+      state.search = filters.search
+    }
+
+    if (withPagination) {
+      state.pagination = data.pagination
+      state.data = data.data
+    } else {
+      state.data = data
+    }
+
+    this.setState(state)
   }
 
+  onPageChange = async page => {
+    this.filter.setFilter('page', page)
+  };
+
+  sort = async field => {
+    const {sorts, filters} = this.state
+
+    for (const key in sorts) {
+      if (key === field[0]) {
+        continue
+      }
+
+      sorts[key] = 1
+    }
+
+    await this.load(1, filters, {
+      [field[0]]: sorts[field[0]] === -1 ? 1 : -1
+    })
+  };
+
+  onSearch = e => {
+    const {value} = e.target
+
+    this.setState({
+      search: value
+    })
+
+    if (this.timeout) {
+      clearTimeout(this.timeout)
+    }
+
+    this.timeout = setTimeout(() => {
+      this.filter.setFilter('search', value)
+    }, 1000)
+  };
+
   render() {
-    const {title = 'Title'} = this.props;
+    const {
+      search,
+      loading,
+      errors,
+      data,
+      sorts,
+      pagination,
+      page
+    } = this.state
+
+    const {
+      title = 'Title',
+      withSearch,
+      fields = [],
+      filters = [],
+      headerExtra,
+      withPagination
+    } = this.props
 
     return (
       <Container fluid>
@@ -39,20 +136,90 @@ class AutoFilter extends Component {
           <Col>
             <Sigma position={'relative'} d={'flex'} alignItems={'center'}>
               <h3>{title}</h3>
-              <Filters props={{
-                dropdown: {
-                  ml: 'auto'
-                }
-              }}/>
+              <Sigma ml={'auto'} d={'flex'} alignItems={'center'}>
+                {withSearch && <Input placeholder={'Search'} value={search} container={{mr: 13}} onChange={this.onSearch} />}
+                {headerExtra && headerExtra}
+                <Filters
+                  ref={ref => this.filter = ref}
+                  extra={[
+                    'page',
+                    'search'
+                  ]}
+                  onFilter={this.onFilter}
+                  fields={filters}
+                />
+              </Sigma>
             </Sigma>
+          </Col>
+          {
+            errors && (
+              <Col>
+                <Alert color={'danger'}>
+                  An error occurred while fetching the data
+                </Alert>
+              </Col>
+            )
+          }
+          <Col>
+            <Card className={loading ? 'loading' : ''}>
+              {
+                !loading && data.length === 0 && (
+                  <Alert color={'secondary'}>
+                    There are no entries to display
+                  </Alert>
+                )
+              }
+              {
+                data.length > 0 && (
+                  <Fragment>
+                    <Table>
+                      <thead>
+                        <tr>
+                          {
+                            fields.map((field, key) => {
+                              return (
+                                <Sigma as={'th'} key={key} {...(field[3] ? {cursor: 'pointer', onClick: e => this.sort(field)} : {})}>
+                                  {field[1]}
+                                  {field[3] && <Sigma d={'inline'} ml={5} dangerouslySetInnerHTML={{__html: sorts[field[0]] === -1 ? '&#9652;' : '&#9662;'}} />}
+                                </Sigma>
+                              )
+                            })
+                          }
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {
+                          data.map((row, key) => {
+                            return (
+                              <tr key={key}>
+                                {
+                                  fields.map((field, subKey) => {
+                                    return (
+                                      <td key={`${key}-${subKey}`}>
+                                        {field[2] ? field[2](get(row, field[0]), row) : get(row, field[0])}
+                                      </td>
+                                    )
+                                  })
+                                }
+                              </tr>
+                            )
+                          })
+                        }
+                      </tbody>
+                    </Table>
+                    {withPagination && <Pagination currentPage={page} totalPages={pagination.pages} onChange={this.onPageChange} mt={11} />}
+                  </Fragment>
+                )
+              }
+            </Card>
           </Col>
         </Row>
       </Container>
-    );
+    )
   }
 }
 
-AutoFilter.propTypes = {
+AutoFilter.contextTypes = {
   client: () => null
 }
 
