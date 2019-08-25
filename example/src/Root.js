@@ -20,7 +20,9 @@ import {
   Table,
   Tooltip,
   Pagination,
-  Dropdown
+  Dropdown,
+  Footer,
+  Filters
 } from '@dreesq/sigma'
 
 export default class Root extends Component {
@@ -155,6 +157,9 @@ export default class Root extends Component {
               </Col>
               <Col md={'width: 60%'}>
                 <Card mt={20}>
+                  <Filters />
+                </Card>
+                <Card mt={20}>
                   <Alert>
                                         Primary alert
                   </Alert>
@@ -202,6 +207,11 @@ export default class Root extends Component {
               </Col>
             </Row>
           </Container>
+          <Footer>
+            <Container>
+              <Text>Footer</Text>
+            </Container>
+          </Footer>
         </Fragment>
       </ThemeProvider>
     )

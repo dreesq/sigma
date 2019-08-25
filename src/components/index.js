@@ -12,6 +12,8 @@ import Table from './Table'
 import Pagination from './Pagination'
 import Tag from './Tag'
 import OutsideClick from './OutsideClick'
+import Footer from './Footer';
+import Filters from './Filters';
 
 export * from './Form'
 export * from './Grid'
@@ -30,5 +32,7 @@ export {
   Table,
   Pagination,
   Tag,
-  OutsideClick
+  OutsideClick,
+  Footer,
+  Filters
 }

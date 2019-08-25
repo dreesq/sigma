@@ -19,6 +19,7 @@ const base = css`
       -webkit-box-sizing: border-box;
               box-sizing: border-box;
       -ms-overflow-style: scrollbar;
+      height: 100%;
     }
     
     *,
@@ -30,6 +31,9 @@ const base = css`
     
     body {
       margin: 0;
+      min-height: 100%;
+      position: relative;
+      padding-bottom: 60px;
     }
     
     body, input, textarea, select {

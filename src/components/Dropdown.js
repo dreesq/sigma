@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import Sigma from './Sigma'
 import OutsideClick from './OutsideClick'
 
@@ -11,6 +11,8 @@ export default class Dropdown extends Component {
   }
 
   onOutsideClick = e =>  {
+    console.log(this.trigger, e.target);
+
     if (this.trigger && this.trigger.contains(e.target)) {
       return
     }
@@ -42,6 +44,7 @@ export default class Dropdown extends Component {
         {...others}
       >
         <Sigma
+          d={'inline-block'}
           ref={ref => this.trigger = ref}
           onClick={e => this.toggle()}
         >
@@ -51,6 +54,7 @@ export default class Dropdown extends Component {
           open && (
             <OutsideClick
               position={'absolute'}
+              width={'100%'}
               mt={4}
               onOutsideClick={this.onOutsideClick}
             >
