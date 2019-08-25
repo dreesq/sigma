@@ -157,7 +157,63 @@ export default class Root extends Component {
               </Col>
               <Col md={'width: 60%'}>
                 <Card mt={20}>
-                  <Filters />
+                  <Filters
+                    fields={[
+                      {
+                        name: 'name',
+                        type: 'text',
+                        defaultValue: 'Default',
+                        label: 'Value',
+                        props: {
+                          col: {
+                            width: '50%',
+                            pr: 10
+                          },
+                          input: {
+                            pl: 45,
+                            icon: (
+                              <S
+                                width={30}
+                                height={30}
+                                bg={'#f7f7f7'}
+                                textAlign={'center'}
+                                d={'block'}
+                                borderRadius={30}
+                                lineHeight={30}
+                                position={'absolute'}
+                                left={8}
+                                bottom={10}
+                              >
+                                A
+                              </S>
+                            )
+                          }
+                        }
+                      },
+                      {
+                        name: 'second',
+                        type: 'text',
+                        defaultValue: '',
+                        props: {
+                          col: {
+                            pr: 10,
+                            width: '50%'
+                          }
+                        }
+                      },
+                      {
+                        name: 'third',
+                        type: 'text',
+                        defaultValue: 'Second default',
+                        label: 'Third',
+                        props: {
+                          col: {
+                            width: '50%'
+                          }
+                        }
+                      }
+                    ]}
+                  />
                 </Card>
                 <Card mt={20}>
                   <Alert>

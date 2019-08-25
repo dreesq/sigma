@@ -11,8 +11,6 @@ export default class Dropdown extends Component {
   }
 
   onOutsideClick = e =>  {
-    console.log(this.trigger, e.target);
-
     if (this.trigger && this.trigger.contains(e.target)) {
       return
     }
@@ -56,6 +54,7 @@ export default class Dropdown extends Component {
               position={'absolute'}
               width={'100%'}
               mt={4}
+              zIndex={'2'}
               onOutsideClick={this.onOutsideClick}
             >
               {children[1]}

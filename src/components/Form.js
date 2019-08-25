@@ -31,30 +31,32 @@ const Input = ({
   size = 'medium',
   error = false,
   as = 'input',
+  icon = '',
   ...others
 }) => (
-  <Sigma
-    as={as}
-    {...sizes[size]}
-    width={'100%'}
-    borderRadius={4}
-    boxSizing={'border-box'}
-    bg={props => `${!error ? 'transparent' : shadeColor(getValue('colors.danger', props), 200)}`}
-    border={props => `1px solid ${error ? getValue('colors.danger', props) : '#dedede'}`}
-    outline={'none'}
-    {...(as === 'select' ? {
-      height: sizes[size].p[0] * 2 + sizes[size].fontSize,
-      p: 0,
-      pl: sizes[size].p[1],
-      pr: sizes[size].p[1]
-    } : {})}
-    {...(as === 'textarea' ? {
-      resize: 'vertical',
-      minHeight: 90
-    } : {})}
-    {...others}
-  >
-    {children}
+  <Sigma position={'relative'}>
+    <Sigma
+      as={as}
+      {...sizes[size]}
+      width={'100%'}
+      borderRadius={4}
+      boxSizing={'border-box'}
+      bg={props => `${!error ? 'transparent' : shadeColor(getValue('colors.danger', props), 200)}`}
+      border={props => `1px solid ${error ? getValue('colors.danger', props) : '#dedede'}`}
+      outline={'none'}
+      {...(as === 'select' ? {
+        height: sizes[size].p[0] * 2 + sizes[size].fontSize,
+        p: 0,
+        pl: sizes[size].p[1],
+        pr: sizes[size].p[1]
+      } : {})}
+      {...(as === 'textarea' ? {
+        resize: 'vertical',
+        minHeight: 90
+      } : {})}
+      {...others}
+    />
+    {icon && icon}
   </Sigma>
 );
 
