@@ -196,7 +196,17 @@ class AutoFilter extends Component {
                                   fields.map((field, subKey) => {
                                     return (
                                       <td key={`${key}-${subKey}`}>
-                                        {field[2] ? field[2](get(row, field[0]), row) : get(row, field[0])}
+                                        {
+                                          (() => {
+                                            let value = field[0] ? get(field[0], row) : row;
+
+                                            if (typeof field[2] === 'function') {
+                                              return field[2](value, row);
+                                            }
+
+                                            return value;
+                                          })()
+                                        }
                                       </td>
                                     )
                                   })
