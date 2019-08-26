@@ -11,7 +11,8 @@ import {
   Col,
   Container,
   Alert,
-  Sigma
+  Sigma,
+  Toggle
 } from '../components'
 
 const e = React.createElement
@@ -36,7 +37,13 @@ class ActionForm extends Component {
     let struct = structure || client.actions.getAction(action)
     let form = {}
 
-    for (const key in struct) {
+    main: for (const key in struct) {
+      for (let subKey in struct[key]) {
+        if (typeof struct[key][subKey] === 'object') {
+          continue main;
+        }
+      }
+
       form[key] = {
         name: key,
         value: defaultValues[key] || '',
@@ -125,6 +132,16 @@ class ActionForm extends Component {
           </Input>
         )
 
+      case 'toggle':
+        return (
+          <Toggle
+            label={placeholder}
+            onChange={this.onChange(field.name, true)}
+            checked={+field.value === 1}
+            {...props}
+          />
+        );
+
       case 'file':
         return (
           <Input
@@ -159,13 +176,13 @@ class ActionForm extends Component {
     }
   };
 
-  onChange = field => {
+  onChange = (field, isToggle = false) => {
     return e => {
-      const {value} = e.target
+      const {value, checked} = e.target
 
       this.setState(state => {
         state.errors[field] = ''
-        state.form[field].value = value
+        state.form[field].value = isToggle ? (checked ? 1 : 0) : value;
         return state
       })
     }
@@ -211,6 +228,7 @@ class ActionForm extends Component {
       onSuccess,
       onHandle,
       withLoading,
+      withValidation = true,
       actionOptions
     } = this.props
 
@@ -226,6 +244,7 @@ class ActionForm extends Component {
 
     const {errors, data} = await client[action](payload, {
       loading: withLoading,
+      validate: withValidation,
       ...actionOptions
     })
 

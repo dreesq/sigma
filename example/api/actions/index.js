@@ -19,14 +19,23 @@ const form = {
   },
   otherField: {
     label: 'Description 2',
-    type: 'textarea',
-    validation: 'required|string|min:1'
-  }
+    type: 'toggle',
+    validation: 'required|number'
+  },
+
 }
 
 config({
   name: 'testAction',
-  input: utils.form(form)
+  input: {
+    e: {
+      f: {
+        g: {
+          h: 'required|true'
+        }
+      }
+    }
+  }
 })(
   async ({ input }) => {
     return utils.success(input)

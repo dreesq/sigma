@@ -2,7 +2,7 @@ module.exports = () => {
   return {
     debug: true,
     server: {
-      port: 3000,
+      port: 3001,
       parsers: true,
       cors: {
         origin: '*',

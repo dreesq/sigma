@@ -19,7 +19,8 @@
     "start": "rollup -c -w",
     "prepare": "npm run build",
     "predeploy": "cd example && npm install && npm run build",
-    "deploy": "gh-pages -d example/build"
+    "deploy": "gh-pages -d example/build",
+    "dev": "concurrently \"npm start\" \"cd example/api && nodemon index.js\" \"cd example && npm start\""
   },
   "peerDependencies": {
     "prop-types": "^15.5.4",
@@ -64,6 +65,7 @@
   ],
   "dependencies": {
     "babel-plugin-transform-react-createelement-to-jsx": "^1.1.0",
+    "concurrently": "^4.1.2",
     "deepmerge": "^4.0.0",
     "styled-components": "^4.3.2"
   }

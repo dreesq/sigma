@@ -12,13 +12,14 @@ import {
   Container,
   Row,
   Col,
-  Sigma
+  Sigma,
+  ActionAlert
 } from '@dreesq/sigma'
 
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.client = new Serpent('http://localhost:3000/o', {
+    this.client = new Serpent('http://localhost:3001/o', {
       debug: true,
       axios
     })
@@ -42,6 +43,7 @@ export default class extends Component {
                     action={'testAction'}
                     withLoading
                     withAlert
+                    withValidation={false}
                     render={{
                       name() {
                         return (
@@ -65,6 +67,10 @@ export default class extends Component {
                 </Card>
               </Col>
               <Col width={'60%'} p={0}>
+                <Col>
+                  <ActionAlert actions={['*']}/>
+                </Col>
+
                 <AutoFilter
                   action={'getPosts'}
                   withSearch
