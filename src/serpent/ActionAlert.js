@@ -87,10 +87,7 @@ class ActionAlert extends Component {
 
       if (typeof messages[key] === 'object' && !Array.isArray(messages[key])) {
         result.push(this.renderMessages(messages[key]));
-        continue;
-      }
-
-      if (Array.isArray(messages[key])) {
+      } else if (Array.isArray(messages[key])) {
         for (let message of messages[key]) {
           result.push(<li>{message}</li>);
         }
