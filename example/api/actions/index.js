@@ -27,14 +27,7 @@ const form = {
 
 config({
   name: 'testAction',
-  input: {
-    e: {
-      f: {
-        g: {
-          h: 'required|true'
-        }
-      }
-    }
+  input: utils.form(form)
   }
 })(
   async ({ input }) => {
@@ -42,7 +35,14 @@ config({
   }
 )
 
-utils.autoCrud('Post')
+utils.autoCrud('Post', {
+  schema: utils.form({
+    title: {
+      label: 'Title',
+      validation: 'required|min:5'
+    }
+  })
+})
 
 action('getPosts', utils.autoFilter('Post', {
   pagination: true,
