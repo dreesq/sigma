@@ -67,7 +67,8 @@ class ActionAlert extends Component {
     }
 
     this.setState({
-      color: 'success'
+      color: 'success',
+      messages: {}
     });
   };
 

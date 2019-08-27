@@ -25,9 +25,20 @@ class AutoFilter extends Component {
     }
   }
 
-  onFilter = async (filters = {}, isMount = false) => {
+  onFilter = async (filters = {}, usePage = false) => {
     const {page, ...others} = filters
-    await this.load(isMount ? (+page || 1) : 1, others, {}, isMount)
+    await this.load(usePage ? (+page || 1) : 1, others, {}, usePage)
+  };
+
+  reload = async (page = false, filters = false, sorts = false) => {
+    page = page || this.state.page;
+    filters = filters || this.state.filters;
+    sorts = sorts || this.state.sorts;
+
+    this.filter.setFilters({
+      page,
+      ...filters
+    });
   };
 
   async load(page = 1, filters = {}, sorts = {}, isMount) {
@@ -75,7 +86,7 @@ class AutoFilter extends Component {
   }
 
   onPageChange = async page => {
-    this.filter.setFilter('page', page)
+    this.filter.setFilter('page', page, true)
   };
 
   sort = async field => {
@@ -110,6 +121,12 @@ class AutoFilter extends Component {
     }, 1000)
   };
 
+  onClear = () => {
+    this.setState({
+      search: ''
+    });
+  };
+
   render() {
     const {
       search,
@@ -141,6 +158,7 @@ class AutoFilter extends Component {
                 {headerExtra && headerExtra}
                 <Filters
                   ref={ref => this.filter = ref}
+                  onClear={this.onClear}
                   extra={[
                     'page',
                     'search'

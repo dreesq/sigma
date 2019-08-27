@@ -28,7 +28,6 @@ const form = {
 config({
   name: 'testAction',
   input: utils.form(form)
-  }
 })(
   async ({ input }) => {
     return utils.success(input)
@@ -39,6 +38,7 @@ utils.autoCrud('Post', {
   schema: utils.form({
     title: {
       label: 'Title',
+      placeholder: '',
       validation: 'required|min:5'
     }
   })

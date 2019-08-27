@@ -10,6 +10,16 @@ export default class Pagination extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps, nextContext) {
+    const {currentPage} = this.state;
+
+    if (nextProps.currentPage !== currentPage) {
+      this.setState({
+        currentPage: nextProps.currentPage
+      })
+    }
+  }
+
   onChange = async page => {
     const {onChange} = this.props
     typeof onChange === 'function' && await onChange(page)

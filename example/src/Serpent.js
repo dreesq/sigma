@@ -13,6 +13,7 @@ import {
   Row,
   Col,
   Sigma,
+  AutoCrud,
   ActionAlert
 } from '@dreesq/sigma'
 
@@ -70,29 +71,19 @@ export default class extends Component {
                 <Col>
                   <ActionAlert actions={['*']}/>
                 </Col>
-
-                <AutoFilter
-                  action={'getPosts'}
-                  withSearch
+                <AutoCrud
+                  collection={'Post'}
                   filters={[
                     {
-                      type: 'text',
                       name: 'title',
+                      label: 'Title',
                       placeholder: 'Title'
                     }
                   ]}
                   fields={[
-                    ['_id', 'Id', (value, row) => (
-                      <Fragment>
-                        {row.title}
-                        <br />
-                        <Sigma fontStyle={'italic'} fontSize={11}>{value}</Sigma>
-                      </Fragment>
-                    ), true],
-                    ['title', 'Title', null, true],
-                    [null, '', value => 'XXXX']
+                    ['_id', 'Id', null, true],
+                    ['title', 'Title', null, true]
                   ]}
-                  withPagination
                 />
               </Col>
             </Row>

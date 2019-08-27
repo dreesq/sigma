@@ -54,7 +54,7 @@ export default class Filters extends Component {
     this.setQuery(values)
   }
 
-  setFilter = (key, value) => {
+  setFilter = (key, value, usePage = false) => {
     const {onFilter} = this.props
 
     this.setState(state => {
@@ -62,9 +62,25 @@ export default class Filters extends Component {
       return state
     }, async () => {
       const {values} = this.state
-      onFilter && await onFilter(values)
+
+      if (!usePage) {
+        delete values.page;
+      }
+
+      onFilter && await onFilter(values, usePage)
       this.setQuery(values)
     })
+  };
+
+  setFilters = async values => {
+    const {onFilter} = this.props
+
+    this.setState({
+      values
+    })
+
+    onFilter && await onFilter(values)
+    this.setQuery(values)
   };
 
   renderField = (field, key) => {
@@ -135,6 +151,7 @@ export default class Filters extends Component {
     e.preventDefault()
     const {values} = this.state
     const {onFilter} = this.props
+    delete values.page;
     onFilter && await onFilter(values)
     console.log(values)
     this.setQuery(values)
@@ -187,7 +204,7 @@ export default class Filters extends Component {
 
   clearFilters = e => {
     e.preventDefault()
-    const {onFilter} = this.props
+    const {onFilter, onClear} = this.props
     this.setState(prevState => {
       for (let key in prevState.values) {
         prevState.values[key] = ''
@@ -197,6 +214,8 @@ export default class Filters extends Component {
     }, async () => {
       this.setQuery({})
       onFilter && await onFilter({})
+      onClear && onClear()
+      this.dropdown.toggle()
     })
   };
 

@@ -26,7 +26,8 @@ class ActionForm extends Component {
       loading: false,
       errors: {},
       data: {},
-      form: {}
+      form: {},
+      base: {}
     }
   }
 
@@ -52,7 +53,8 @@ class ActionForm extends Component {
     }
 
     this.setState({
-      form
+      form,
+      base: JSON.parse(JSON.stringify(form))
     })
   }
 
@@ -115,6 +117,7 @@ class ActionForm extends Component {
         return (
           <Input
             placeholder={placeholder}
+            value={field.value}
             error={errors[field.name]}
             onChange={this.onChange(field.name)}
             as={'select'}
@@ -157,6 +160,7 @@ class ActionForm extends Component {
         return (
           <Input
             placeholder={placeholder}
+            value={field.value}
             as={'textarea'}
             error={errors[field.name]}
             onChange={this.onChange(field.name)}
@@ -167,7 +171,8 @@ class ActionForm extends Component {
       default:
         return (
           <Input
-            placeholder={field.name}
+            placeholder={placeholder}
+            value={field.value}
             error={errors[field.name]}
             onChange={this.onChange(field.name)}
             {...props}
@@ -222,9 +227,11 @@ class ActionForm extends Component {
     e.preventDefault()
 
     const {client} = this.context
+    const {base} = this.state;
     const {
       action,
       onError,
+      onHandled,
       onSuccess,
       onHandle,
       withLoading,
@@ -250,6 +257,7 @@ class ActionForm extends Component {
 
     if (errors) {
       onError && onError(errors)
+      onHandled && onHandled()
       return this.setState({
         errors,
         loading: false,
@@ -264,6 +272,7 @@ class ActionForm extends Component {
 
     this.setState({
       data,
+      form: base,
       loading: false,
       ...(typeof data === 'string' ? {
         alert: {
@@ -274,6 +283,7 @@ class ActionForm extends Component {
     })
 
     onSuccess && onSuccess(data)
+    onHandled && onHandled()
   }
 
   getMessage = (errors) => {
