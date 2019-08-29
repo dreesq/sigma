@@ -39,6 +39,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "concurrently": "^4.1.2",
     "cross-env": "^5.1.4",
     "eslint": "^5.0.1",
     "eslint-config-standard": "^11.0.0",
@@ -65,7 +66,6 @@
   ],
   "dependencies": {
     "babel-plugin-transform-react-createelement-to-jsx": "^1.1.0",
-    "concurrently": "^4.1.2",
     "deepmerge": "^4.0.0",
     "styled-components": "^4.3.2"
   }

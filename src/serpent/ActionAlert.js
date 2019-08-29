@@ -17,7 +17,8 @@ class ActionAlert extends Component {
     this.state = {
       visible: false,
       color: 'primary',
-      messages: {}
+      messages: {},
+      content: null
     };
   }
 
@@ -46,29 +47,44 @@ class ActionAlert extends Component {
   }
 
   onError = ([action, errors]) => {
-    const {actions = []} = this.props;
+    const {actions = [], renderError} = this.props;
 
     if (!actions.includes(action) && !actions.includes('*')) {
       return;
+    }
+
+    let content;
+
+    if (renderError) {
+      content = renderError([action, errors]);
+    } else {
+      content = this.renderMessages(errors);
     }
 
     this.setState({
       color: 'danger',
       visible: true,
-      messages: errors
+      content
     });
   };
 
   onSuccess = ([action, result]) => {
-    const {actions = []} = this.props;
+    const {actions = [], renderSuccess} = this.props;
 
     if (!actions.includes(action) && !actions.includes('*')) {
       return;
     }
 
+    let content;
+
+    if (renderSuccess) {
+      content = renderSuccess([action, result]);
+    }
+
     this.setState({
       color: 'success',
-      messages: {}
+      content,
+      visible: true
     });
   };
 
@@ -109,7 +125,8 @@ class ActionAlert extends Component {
     const {
       color,
       visible,
-      messages
+      messages,
+      content
     } = this.state;
 
     if (!visible) {
@@ -117,9 +134,9 @@ class ActionAlert extends Component {
     }
 
     return (
-      <Alert color={color} d={'flex'} alignItems={'flex-start'}>
+      <Alert color={color} d={'flex'} alignItems={'flex-start'} {...this.props}>
         <Sigma>
-          {this.renderMessages(messages)}
+          {content}
         </Sigma>
         <Sigma ml={'auto'} cursor={'pointer'}>
           <Sigma fontSize={18} onClick={e => this.toggle(false)} dangerouslySetInnerHTML={{__html: '&times'}} />

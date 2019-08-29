@@ -68,9 +68,6 @@ export default class extends Component {
                 </Card>
               </Col>
               <Col width={'60%'} p={0}>
-                <Col>
-                  <ActionAlert actions={['*']}/>
-                </Col>
                 <AutoCrud
                   collection={'Post'}
                   filters={[

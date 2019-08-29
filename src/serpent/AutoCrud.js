@@ -1,26 +1,143 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import Modal from '../components/Modal';
+import Text from '../components/Text';
 import ActionForm from './ActionForm';
+import ActionAlert from './ActionAlert'
 import AutoFilter from './AutoFilter';
+import Button from '../components/Button';
+import Dropdown from '../components/Dropdown';
+import Card from '../components/Card';
+import Sigma from '../components/Sigma';
+import ConfirmModal from '../components/ConfirmModal';
+import {Col} from '../components/Grid';
+
+class ActionModal extends Component {
+  toggle = (show = true, data = {}) => {
+    this.modal.toggle(show);
+  };
+
+  render() {
+    const {action = {}, title} = this.props;
+
+    return (
+      <Modal ref={ref => this.modal = ref} onClose={e => this.modal.toggle(false)}>
+        <h2>{title}</h2>
+        <ActionForm
+          withClose
+          {...action}
+        />
+      </Modal>
+    );
+  }
+}
 
 class AutoCrud extends Component {
+  onCreate = e => {
+    this.modal.toggle(true);
+  };
+
+  onDelete = async row => {
+    const {collection} = this.props;
+    const {client} = this.context;
+    const action = `autoRemove${collection}`;
+
+    await client[action]({
+      id: row._id
+    });
+
+    await this.autoFilter.reload(1, {}, {});
+  }
+
+  renderEdit = () => {
+    const {
+      withEdit = true,
+      withDelete = true,
+      extraOptions = []
+    } = this.props;
+
+    return [
+      null,
+      null,
+      (row) => (
+        <Dropdown textAlign={'right'}>
+          {
+            (open) => (
+              <Fragment>
+                <Sigma fontSize={26} mt={-16} dangerouslySetInnerHTML={{__html: '&hellip;'}} cursor={'pointer'} />
+                <Card p={[10, 20]} w={'140px !important'} textAlign={'left'}>
+                  {withEdit && <Text cursor={'pointer'}>
+                    Edit
+                  </Text>}
+                  {withDelete && <Text color={'danger'} cursor={'pointer'} onClick={() => this.confirm.confirm(e => this.onDelete(row))}>
+                    Delete
+                  </Text>}
+                  {extraOptions.map((renderer, index) => renderer(row, index))}
+                </Card>
+              </Fragment>
+            )
+          }
+        </Dropdown>
+      ),
+      false
+    ]
+  };
+
   render() {
-    const {collection, filters = [], fields = [], autoFilterProps = {}} = this.props;
+    const {
+      collection,
+      filters = [],
+      fields = [],
+      autoFilterProps = {},
+      withOptions = true,
+      withActionAlert = true
+    } = this.props;
 
     return (
       <div className={`autoCrud-${collection}`}>
-        <ActionForm
-          onHandled={e => this.autoFilter.reload(1, {}, {})}
-          action={`autoCreate${collection}`}
+        <ConfirmModal ref={ref => this.confirm = ref}/>
+        <ActionModal
+          ref={ref => this.modal = ref}
+          title={`Create ${collection}`}
+          action={{
+            focusFirst: true,
+            handleText: 'Create',
+            onHandled: async e => {
+              await this.autoFilter.reload(1, {}, {});
+              this.modal.toggle(false);
+            },
+            action: `autoCreate${collection}`,
+            onCancel: e => this.modal.toggle(false),
+            props: {
+              cancel: {
+                inverted: true,
+                mr: 5,
+                ml: 'auto'
+              }
+            }
+          }}
         />
-
         <AutoFilter
           ref={ref => this.autoFilter = ref}
           action={`autoFind${collection}`}
           withSearch
           filters={filters}
-          fields={fields}
+          fields={[
+            ...fields,
+            withOptions ? this.renderEdit() : null
+          ].filter(i => !!i)}
           withPagination
+          headerExtra={(
+            <Button mr={5} color={'success'} onClick={this.onCreate}>{`Create ${collection}`}</Button>
+          )}
+          bodyExtra={[
+            withActionAlert && (<Col>
+              <ActionAlert
+                m={[10, 0]}
+                actions={[`autoCreate${collection}`, `autoRemove${collection}`, `autoUpdate${collection}`]}
+                renderSuccess={([action, data]) => 'Action successfully done'}
+              />
+            </Col>)
+          ]}
           {...autoFilterProps}
         />
       </div>

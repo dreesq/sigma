@@ -101,7 +101,7 @@ class ActionForm extends Component {
     )
   }
 
-  _renderField = (field, props) => {
+  _renderField = (field, props, autoFocus = false) => {
     const {errors} = this.state
     const {client} = this.context
 
@@ -159,6 +159,7 @@ class ActionForm extends Component {
       case 'textarea':
         return (
           <Input
+            autoFocus={autoFocus}
             placeholder={placeholder}
             value={field.value}
             as={'textarea'}
@@ -171,6 +172,7 @@ class ActionForm extends Component {
       default:
         return (
           <Input
+            autoFocus={autoFocus}
             placeholder={placeholder}
             value={field.value}
             error={errors[field.name]}
@@ -378,7 +380,7 @@ class ActionForm extends Component {
   }
 
   _renderFormGroup = (field, key, props) => {
-    const {render = {}} = this.props
+    const {render = {}, focusFirst} = this.props
     const {form, errors} = this.state
 
     let rendered = render[field] ? render[field]({
@@ -386,10 +388,11 @@ class ActionForm extends Component {
       state: this.state,
       error: errors[field],
       value: form[field].value,
-      label: this.getLabel(form[field])
+      label: this.getLabel(form[field]),
+      key
     }) : [
       this._renderLabel(form[field], this._makeProps(props, 'label', field)),
-      this._renderField(form[field], this._makeProps(props, 'input', field)),
+      this._renderField(form[field], this._makeProps(props, 'input', field), focusFirst ? key === 0 : false),
       errors[field] && (
         <Text color={'danger'}>
           {this.getMessage(errors[field])}
@@ -443,8 +446,10 @@ class ActionForm extends Component {
         <Form onSubmit={this.handle}>
           {this._renderAlert(props)}
           {Object.keys(form).map((field, key) => this._renderFormGroup(field, key, props))}
-          {onCancel && this._renderCancelBtn(props)}
-          {this._renderHandleBtn(props)}
+          <Sigma d={'flex'}>
+            {onCancel && this._renderCancelBtn(props)}
+            {this._renderHandleBtn(props)}
+          </Sigma>
         </Form>
       )
     }

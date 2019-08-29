@@ -144,6 +144,8 @@ class AutoFilter extends Component {
       fields = [],
       filters = [],
       headerExtra,
+      bodyExtra,
+      footerExtra,
       withPagination
     } = this.props
 
@@ -178,6 +180,7 @@ class AutoFilter extends Component {
               </Col>
             )
           }
+          {bodyExtra}
           <Col>
             <Card className={loading ? 'loading' : ''}>
               {
@@ -235,10 +238,11 @@ class AutoFilter extends Component {
                         }
                       </tbody>
                     </Table>
-                    {withPagination && <Pagination currentPage={page} totalPages={pagination.pages} onChange={this.onPageChange} mt={11} />}
+                    {withPagination && pagination.pages > 1 && <Pagination currentPage={page} totalPages={pagination.pages} onChange={this.onPageChange} mt={11} />}
                   </Fragment>
                 )
               }
+              {footerExtra}
             </Card>
           </Col>
         </Row>

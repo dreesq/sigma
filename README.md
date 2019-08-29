@@ -11,24 +11,23 @@ Sigma is an UI library made using `styled-components`. You can install it using 
 The library is built using the core component `Sigma`. Here's a basic example on how to use the component:
 
 ```js
-import {render} from 'react-dom';
-import {Sigma} from '@dreesq/sigma';
+import { render } from "react-dom";
+import { Sigma } from "@dreesq/sigma";
 
 const root = (
-    <Sigma
-        width={100}
-        height={100}
-        background={'red'}
-        borderRadius={'50%'}
-        cursor={'pointer'}
-        hover={`
+  <Sigma
+    width={100}
+    height={100}
+    background={"red"}
+    borderRadius={"50%"}
+    cursor={"pointer"}
+    hover={`
             background: yellow;
-        `}  
-    />
+        `}
+  />
 );
 
-render(root, document.querySelector('#root'));
+render(root, document.querySelector("#root"));
 ```
 
-In addition to the core component, the library provides additional useful components such as ```Grid``` and ```Base```.
-
+In addition to the core component, the library provides additional useful components such as `Grid` and `Base`.
