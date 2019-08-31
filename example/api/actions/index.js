@@ -22,8 +22,45 @@ const form = {
     type: 'toggle',
     validation: 'required|number'
   },
-
+  nextField: {
+    label: 'Autocomplete',
+    type: 'autocomplete',
+    validation: 'required|number',
+    values: 'getStaticValues'
+  },
+  lastField: {
+    label: 'Autocomplete',
+    type: 'autocomplete',
+    validation: 'required|number',
+    values: 'getDynamicValues'
+  },
 }
+
+action('getStaticValues',[
+  {
+    name: 'a',
+    value: 'b'
+  },
+  {
+    name: 'b',
+    value: 'c'
+  }
+]);
+
+action('getDynamicValues', async ({input}) => {
+  let values = [
+    {
+      name: 'a',
+      value: 'b'
+    },
+    {
+      name: 'b',
+      value: 'c'
+    }
+  ];
+
+  return values.filter(item => item.name.toLowerCase().indexOf(input.text.toLowerCase()) > -1);
+});
 
 config({
   name: 'testAction',

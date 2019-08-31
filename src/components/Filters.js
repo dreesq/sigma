@@ -6,6 +6,8 @@ import Sigma from './Sigma'
 import Toggle from './Toggle'
 import {Input, Group, Label, Form} from './Form'
 import {Col, Row, Container} from './Grid'
+import Autocomplete from './Autocomplete'
+import {Radio} from "./index";
 
 export default class Filters extends Component {
   constructor(props) {
@@ -21,10 +23,10 @@ export default class Filters extends Component {
     return values
   };
 
-  onChange = (field, isCheckbox) => {
+  onChange = (field, isCheckbox, isAutocomplete) => {
     return e => {
       const {target} = e
-      const value = isCheckbox ? (target.checked ? 1 : 0) : target.value
+      const value = isCheckbox ? (target.checked ? 1 : 0) : (isAutocomplete ? target.value.value : target.value)
 
       this.setState(state => {
         state.values[field] = value
@@ -83,6 +85,19 @@ export default class Filters extends Component {
     this.setQuery(values)
   };
 
+  onSearch = field => {
+    const {name} = field;
+    const {onSearch} = this.props;
+
+    if (!onSearch) {
+      return;
+    }
+
+    return async text => {
+      return await onSearch(name, text);
+    };
+  };
+
   renderField = (field, key) => {
     const {values} = this.state
     const {props = { input: {}, col: {}, label: {} }, label, name, placeholder} = field
@@ -95,6 +110,7 @@ export default class Filters extends Component {
             placeholder={placeholder}
             onChange={this.onChange(field.name)}
             as={'select'}
+            name={field.name}
             value={values[name]}
             key={key}
             {...props.input}
@@ -102,7 +118,7 @@ export default class Filters extends Component {
             {
               (field.values || []).map((value, key) => {
                 return (
-                  <option key={key}>
+                  <option key={key} value={value}>
                     {value}
                   </option>
                 )
@@ -112,10 +128,36 @@ export default class Filters extends Component {
         )
         break
 
+      case 'radio':
+        fieldEl = (
+          <Radio
+            name={name}
+            label={placeholder}
+            onChange={this.onChange(field.name)}
+            value={field.value}
+            checked={field.value === values[name]}
+            {...props}
+          />
+        )
+        break
+
+      case 'autocomplete':
+        fieldEl = (
+          <Autocomplete
+            name={name}
+            onChange={this.onChange(field.name, false, true)}
+            placeholder={placeholder}
+            onSearch={this.onSearch(field)}
+            {...props.input}
+          />
+        )
+        break
+
       case 'toggle':
         fieldEl = (
           <Toggle
             label={placeholder}
+            name={name}
             onChange={this.onChange(field.name, true)}
             checked={+values[name] === 1}
             key={key}
@@ -128,6 +170,7 @@ export default class Filters extends Component {
         fieldEl = (
           <Input
             key={key}
+            name={name}
             value={values[name]}
             placeholder={placeholder}
             onChange={this.onChange(field.name)}

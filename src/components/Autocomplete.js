@@ -108,7 +108,7 @@ export default class Autocomplete extends Component {
 
   render() {
     const {value, items, visible, loading, selected} = this.state;
-    const {name, onChange, placeholder, renderLoading, renderNoItems, renderItem, ...others} = this.props;
+    const {name, error, onChange, placeholder, renderLoading, renderNoItems, renderItem, ...others} = this.props;
 
     return (
       <Sigma position={'relative'} {...others}>
@@ -117,6 +117,7 @@ export default class Autocomplete extends Component {
             <Input
               name={name}
               value={value}
+              error={error}
               onFocus={this.onFocus}
               placeholder={placeholder}
               onChange={this.onChange} />
@@ -125,6 +126,7 @@ export default class Autocomplete extends Component {
               d={visible ? 'block' : 'none'}
               maxHeight={165}
               mt={10}
+              zIndex={'3'}
               overflow={'scroll'}
               p={[10, 30]}
             >

@@ -7,6 +7,8 @@ export default class Radio extends Component {
     let color = props.color || 'primary';
 
     return `
+      margin-bottom: 5px;
+    
       input[type="radio"] {
         position: absolute;
         opacity: 0;
@@ -73,12 +75,12 @@ export default class Radio extends Component {
   randomStr = () => Math.random().toString(36).substring(7);
 
   render() {
-    const {name, disabled, onChange, value, label = '', ...others} = this.props;
+    const {name, disabled, onChange, value, checked, label = '', ...others} = this.props;
     const id = this.randomStr();
 
     return (
       <Sigma css={this.css} {...others}>
-        <input type={'radio'} value={value} id={id} name={name} disabled={disabled} onChange={onChange}/>
+        <input type={'radio'} value={value} checked={checked} id={id} name={name} disabled={disabled} onChange={onChange}/>
         <label htmlFor={id} className="radio-label">{label}</label>
       </Sigma>
     )

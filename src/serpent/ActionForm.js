@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import deepmerge from 'deepmerge'
 import {
   Input,
@@ -12,10 +12,10 @@ import {
   Container,
   Alert,
   Sigma,
-  Toggle
+  Toggle,
+  Radio,
+  Autocomplete
 } from '../components'
-
-const e = React.createElement
 
 class ActionForm extends Component {
   constructor(props) {
@@ -63,7 +63,7 @@ class ActionForm extends Component {
       label: '',
       values: '',
       placeholder: '',
-      type: ''
+      type: '',
     }
 
     let parsed = field.split('|').map(rule => rule.split(':')).find(rule => rule[0] === 'form')
@@ -78,6 +78,30 @@ class ActionForm extends Component {
 
     return result
   }
+
+  onSearch = field => {
+    const {client} = this.context
+
+    return async text => {
+      if (Array.isArray(field.values)) {
+        return field.values.filter(value => value.name.toLowerCase().indexOf(text.toLowerCase()) > -1);
+      }
+
+      if (typeof field.values === 'string') {
+        const {data, errors} = await client[field.values]({
+          text
+        });
+
+        if (errors) {
+          return [];
+        }
+
+        return data;
+      }
+
+      return [];
+    }
+  };
 
   getLabel = field => {
     const {client} = this.context
@@ -125,15 +149,29 @@ class ActionForm extends Component {
           >
             {
               (field.values || []).map((value, key) => {
+                let name = client.i18n.t(value.name)
+                name = name !== '[empty string]' ? name : value.name;
+
                 return (
-                  <option key={key}>
-                    {value}
+                  <option key={key} value={value.value}>
+                    {name}
                   </option>
                 )
               })
             }
           </Input>
         )
+
+      case 'autocomplete':
+        return (
+          <Autocomplete
+            placeholder={placeholder}
+            onSearch={this.onSearch(field)}
+            error={errors[field.name]}
+            onChange={this.onChange(field.name)}
+            {...props}
+          />
+        );
 
       case 'toggle':
         return (
@@ -143,6 +181,29 @@ class ActionForm extends Component {
             checked={+field.value === 1}
             {...props}
           />
+        );
+
+      case 'radio':
+        return (
+          <Fragment>
+            {
+              field.values.map((value, key) => {
+                let name = client.i18n.t(value.name)
+                name = name !== '[empty string]' ? name : value.name
+
+                return (
+                  <Radio
+                    key={key}
+                    label={name}
+                    onChange={this.onChange(field.name)}
+                    value={value.value}
+                    checked={value.value === field.value}
+                    {...props}
+                  />
+                )
+              })
+            }
+          </Fragment>
         );
 
       case 'file':
@@ -189,7 +250,7 @@ class ActionForm extends Component {
 
       this.setState(state => {
         state.errors[field] = ''
-        state.form[field].value = isToggle ? (checked ? 1 : 0) : value;
+        state.form[field].value = isToggle ? (checked ? 1 : 0) : (typeof value === 'object' ? value.value : value);
         return state
       })
     }

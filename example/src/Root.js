@@ -260,6 +260,17 @@ export default class Root extends Component {
                               width: '50%'
                             }
                           }
+                        },
+                        {
+                          name: 'sixthe',
+                          type: 'radio',
+                          placeholder: 'Radio',
+                          value: 'yes',
+                          props: {
+                            col: {
+                              width: '50%'
+                            }
+                          }
                         }
                       ]}
                     />
