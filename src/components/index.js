@@ -15,6 +15,8 @@ import OutsideClick from './OutsideClick'
 import Footer from './Footer'
 import Filters from './Filters'
 import Toggle from './Toggle'
+import Radio from './Radio'
+import Autocomplete from './Autocomplete'
 
 export * from './Form'
 export * from './Grid'
@@ -36,5 +38,7 @@ export {
   OutsideClick,
   Footer,
   Filters,
-  Toggle
+  Toggle,
+  Radio,
+  Autocomplete
 }

@@ -16,7 +16,7 @@ export const get = (key, value = {}) => {
     let currentKey = key.shift()
 
     if (!current.hasOwnProperty(currentKey)) {
-      return key
+      return currentKey
     }
 
     current = current[currentKey]

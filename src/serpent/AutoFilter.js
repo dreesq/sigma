@@ -118,7 +118,7 @@ class AutoFilter extends Component {
 
     this.timeout = setTimeout(() => {
       this.filter.setFilter('search', value)
-    }, 1000)
+    }, 300)
   };
 
   onClear = () => {
@@ -195,7 +195,7 @@ class AutoFilter extends Component {
                   <Fragment>
                     <Table md={`
                       thead {
-                        display: block;
+                        display: table-row-group;
                       }
                       
                       td {

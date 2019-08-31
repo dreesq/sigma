@@ -23,10 +23,39 @@ import {
   Dropdown,
   Footer,
   Filters,
-  Toggle
+  Toggle,
+  Radio,
+  Autocomplete
 } from '@dreesq/sigma'
 
 export default class Root extends Component {
+  onSearch = text => {
+    let items = [
+      {
+        name: 'a',
+        value: 1
+      },
+      {
+        name: 'b',
+        value: 2
+      },
+      {
+        name: 'c',
+        value: 3
+      },
+      {
+        name: 'ab',
+        value: 4
+      },
+      {
+        name: 'abc',
+        value: 5
+      }
+    ];
+
+    return items.filter(item => item.name.indexOf(text) > -1);
+  };
+
   render() {
     return (
       <ThemeProvider theme={{
@@ -116,6 +145,9 @@ export default class Root extends Component {
                         </Card>
                       </S>
                     </Tooltip>
+                    <S m={[10, 0]}>
+                      <Radio name={'radio-1'} label={'Radio Item'}/>
+                    </S>
                   </S>
                   <Table mb={16}>
                     <thead>
@@ -162,6 +194,7 @@ export default class Root extends Component {
               <Col md={'width: 60%'}>
                 <Card mt={20}>
                   <S position={'relative'}>
+                    <Autocomplete m={[10, 0]} placeholder={'Autocomplete'} onChange={() => {}} name={'search'} onSearch={this.onSearch}/>
                     <Filters
                       fields={[
                         {

@@ -7,7 +7,7 @@ export default ({
   color,
   ellipsis,
   css,
-  className,
+  className = '',
   ...others
 }) => (
   <Sigma
