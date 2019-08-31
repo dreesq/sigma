@@ -153,7 +153,7 @@ class AutoFilter extends Component {
       <Container fluid>
         <Row>
           <Col>
-            <Sigma position={'relative'} d={'flex'} alignItems={'center'}>
+            <Sigma position={'relative'} d={'flex'} alignItems={'center'} xs={'flex-wrap: wrap;'} sm={'flex-wrap: no-wrap;'}>
               <h3>{title}</h3>
               <Sigma ml={'auto'} d={'flex'} alignItems={'center'}>
                 {withSearch && <Input placeholder={'Search'} value={search} container={{mr: 13}} onChange={this.onSearch} />}
@@ -193,7 +193,23 @@ class AutoFilter extends Component {
               {
                 data.length > 0 && (
                   <Fragment>
-                    <Table>
+                    <Table md={`
+                      thead {
+                        display: block;
+                      }
+                      
+                      td {
+                        display: table-cell;
+                      }
+                    `} xs={`
+                      thead {
+                        display: none;
+                      }
+                      
+                      td {
+                        display: block;
+                      }
+                    `}>
                       <thead>
                         <tr>
                           {
@@ -225,7 +241,12 @@ class AutoFilter extends Component {
                                               return field[2](value, row);
                                             }
 
-                                            return value;
+                                            return (
+                                              <Fragment>
+                                                <Sigma md={'display: none;'} xs={'display: block;'} fontWeight={'600'}>{field[1]}:</Sigma>
+                                                {value}
+                                              </Fragment>
+                                            );
                                           })()
                                         }
                                       </td>

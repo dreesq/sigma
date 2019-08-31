@@ -12,19 +12,39 @@ import ConfirmModal from '../components/ConfirmModal';
 import {Col} from '../components/Grid';
 
 class ActionModal extends Component {
+  state = {
+    data: false
+  }
+
   toggle = (show = true, data = {}) => {
+    this.setState({
+      data
+    });
+
     this.modal.toggle(show);
   };
 
   render() {
-    const {action = {}, title} = this.props;
+    const {data} = this.state;
+    const edit = Object.keys(data).length > 0;
+
+    const {action = {}, collection, props} = this.props;
+    const handleText = action.handleText || (edit ? 'Save' : 'Create');
+    const actionName = action.action || (edit ? `autoUpdate${collection}` : `autoCreate${collection}`);
+
+    if (data._id) {
+      data.id = data._id;
+    }
 
     return (
-      <Modal ref={ref => this.modal = ref} onClose={e => this.modal.toggle(false)}>
-        <h2>{title}</h2>
+      <Modal ref={ref => this.modal = ref} onClose={e => this.modal.toggle(false)} {...props}>
+        <h2>{`${edit ? 'Update' : 'Create'} ${collection}`}</h2>
         <ActionForm
           withClose
+          defaultValues={data}
           {...action}
+          handleText={handleText}
+          action={actionName}
         />
       </Modal>
     );
@@ -59,13 +79,13 @@ class AutoCrud extends Component {
       null,
       null,
       (row) => (
-        <Dropdown textAlign={'right'}>
+        <Dropdown md={'text-align: right;'} sm={'text-align: left'}>
           {
             (open) => (
               <Fragment>
                 <Sigma fontSize={26} mt={-16} dangerouslySetInnerHTML={{__html: '&hellip;'}} cursor={'pointer'} />
                 <Card p={[10, 20]} w={'140px !important'} textAlign={'left'}>
-                  {withEdit && <Text cursor={'pointer'}>
+                  {withEdit && <Text cursor={'pointer'} onClick={() => this.modal.toggle(true, row)}>
                     Edit
                   </Text>}
                   {withDelete && <Text color={'danger'} cursor={'pointer'} onClick={() => this.confirm.confirm(e => this.onDelete(row))}>
@@ -97,15 +117,13 @@ class AutoCrud extends Component {
         <ConfirmModal ref={ref => this.confirm = ref}/>
         <ActionModal
           ref={ref => this.modal = ref}
-          title={`Create ${collection}`}
+          collection={collection}
           action={{
             focusFirst: true,
-            handleText: 'Create',
             onHandled: async e => {
               await this.autoFilter.reload(1, {}, {});
               this.modal.toggle(false);
             },
-            action: `autoCreate${collection}`,
             onCancel: e => this.modal.toggle(false),
             props: {
               cancel: {
@@ -127,7 +145,7 @@ class AutoCrud extends Component {
           ].filter(i => !!i)}
           withPagination
           headerExtra={(
-            <Button mr={5} color={'success'} onClick={this.onCreate}>{`Create ${collection}`}</Button>
+            <Button mr={5} color={'success'} onClick={this.onCreate} whiteSpace={'nowrap'}>{`Create ${collection}`}</Button>
           )}
           bodyExtra={[
             withActionAlert && (<Col>
@@ -135,6 +153,7 @@ class AutoCrud extends Component {
                 m={[10, 0]}
                 actions={[`autoCreate${collection}`, `autoRemove${collection}`, `autoUpdate${collection}`]}
                 renderSuccess={([action, data]) => 'Action successfully done'}
+                renderError={false}
               />
             </Col>)
           ]}

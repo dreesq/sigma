@@ -88,12 +88,13 @@ export const toString = value => {
 
 /**
  * Given a size and css, generates a media query
- * @param size
+ * @param from
  * @param css
+ * @param to
  */
 
-export const toMedia = (size, css) => `
-    @media screen and (min-width: ${size}px) {
+export const toMedia = (from, css, to) => `
+    @media screen and (min-width: ${from}px) ${typeof to !== 'undefined' ? `and (max-width: ${to}px)` : ''} {
         ${css}
     }
 `

@@ -49,7 +49,7 @@ class ActionAlert extends Component {
   onError = ([action, errors]) => {
     const {actions = [], renderError} = this.props;
 
-    if (!actions.includes(action) && !actions.includes('*')) {
+    if ((!actions.includes(action) && !actions.includes('*')) || renderError === false) {
       return;
     }
 
@@ -71,7 +71,7 @@ class ActionAlert extends Component {
   onSuccess = ([action, result]) => {
     const {actions = [], renderSuccess} = this.props;
 
-    if (!actions.includes(action) && !actions.includes('*')) {
+    if ((!actions.includes(action) && !actions.includes('*')) || renderSuccess === false) {
       return;
     }
 

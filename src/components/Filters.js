@@ -153,7 +153,6 @@ export default class Filters extends Component {
     const {onFilter} = this.props
     delete values.page;
     onFilter && await onFilter(values)
-    console.log(values)
     this.setQuery(values)
     this.dropdown.toggle()
   };
@@ -240,7 +239,7 @@ export default class Filters extends Component {
           open => (
             <Fragment>
               <Button {...props.trigger}>{btnText}</Button>
-              <Card width={'100%'} pt={12} {...props.content}>
+              <Card width={'100%'} pt={12} mt={10} {...props.content}>
                 <Sigma alignItems={'center'} d={'flex'}>
                   {title && <h3>{title}</h3>}
                   <Sigma

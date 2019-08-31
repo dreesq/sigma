@@ -105,7 +105,7 @@ class ActionForm extends Component {
     const {errors} = this.state
     const {client} = this.context
 
-    if (!field) {
+    if (!field || field.name === 'id') {
       return null
     }
 
@@ -259,7 +259,6 @@ class ActionForm extends Component {
 
     if (errors) {
       onError && onError(errors)
-      onHandled && onHandled()
       return this.setState({
         errors,
         loading: false,
@@ -407,6 +406,32 @@ class ActionForm extends Component {
     )
   };
 
+  _renderDebug = () => {
+    const {form} = this.state;
+    const css = `
+        width: 100%;
+        max-height: 340px;
+        overflow: scroll;
+        word-break: inherit;
+        background: #292828;
+        color: #4dff85;
+        padding: 10px;
+        border-radius: 4px;
+    `;
+
+    const info = {
+      values: this.getValues(),
+      form,
+      props: this.props
+    };
+
+    return (
+      <Sigma as={'pre'} css={css}>
+        {JSON.stringify(info, null, 4)}
+      </Sigma>
+    );
+  };
+
   _renderFormElement = (entry, key, props = {}, globalProps = {}) => {
     let name = entry
 
@@ -439,11 +464,12 @@ class ActionForm extends Component {
   render() {
     const {form} = this.state
     const layout = this._getLayout()
-    const {onCancel, props = {}} = this.props
+    const {onCancel, props = {}, debug = false} = this.props
 
     if (!layout) {
       return (
         <Form onSubmit={this.handle}>
+          {debug && this._renderDebug()}
           {this._renderAlert(props)}
           {Object.keys(form).map((field, key) => this._renderFormGroup(field, key, props))}
           <Sigma d={'flex'}>
@@ -456,6 +482,7 @@ class ActionForm extends Component {
 
     return (
       <Container fluid>
+        {debug && this._renderDebug()}
         <Form onSubmit={this.handle}>
           {
             layout.map((row, rowKey) => (
