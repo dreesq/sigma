@@ -210,7 +210,7 @@ export default class Filters extends Component {
     }
 
     str = str.join('&')
-    str = !str ? '' : `?${str}`
+    str = !str ? '?' : `?${str}`
 
     if (str === window.location.search) {
       return

@@ -117,7 +117,8 @@ class AutoFilter extends Component {
     }
 
     this.timeout = setTimeout(() => {
-      this.filter.setFilter('search', value)
+      const {search} = this.state;
+      this.filter.setFilter('search', search)
     }, 300)
   };
 
