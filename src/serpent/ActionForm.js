@@ -143,6 +143,7 @@ class ActionForm extends Component {
             placeholder={placeholder}
             value={field.value}
             error={errors[field.name]}
+            name={field.name}
             onChange={this.onChange(field.name)}
             as={'select'}
             {...props}
@@ -168,6 +169,7 @@ class ActionForm extends Component {
             placeholder={placeholder}
             onSearch={this.onSearch(field)}
             error={errors[field.name]}
+            name={field.name}
             onChange={this.onChange(field.name)}
             {...props}
           />
@@ -179,6 +181,7 @@ class ActionForm extends Component {
             label={placeholder}
             onChange={this.onChange(field.name, true)}
             checked={+field.value === 1}
+            name={field.name}
             {...props}
           />
         );
@@ -212,6 +215,7 @@ class ActionForm extends Component {
             as={'file'}
             placeholder={placeholder}
             error={errors[field.name]}
+            name={field.name}
             onChange={this.onChange(field.name)}
             {...props}
           />
@@ -224,6 +228,7 @@ class ActionForm extends Component {
             placeholder={placeholder}
             value={field.value}
             as={'textarea'}
+            name={field.name}
             error={errors[field.name]}
             onChange={this.onChange(field.name)}
             {...props}
@@ -236,6 +241,7 @@ class ActionForm extends Component {
             autoFocus={autoFocus}
             placeholder={placeholder}
             value={field.value}
+            name={field.name}
             error={errors[field.name]}
             onChange={this.onChange(field.name)}
             {...props}
@@ -378,7 +384,7 @@ class ActionForm extends Component {
     return layout[currentBp] || false
   }
 
-  _renderHandleBtn = props => {
+  _renderHandleBtn = (props, key = '') => {
     const {loading} = this.state
     const {handleText = 'Handle', withLoading} = this.props
 
@@ -508,15 +514,15 @@ class ActionForm extends Component {
     }
 
     if (name === '_alert_') {
-      return this._renderAlert(props)
+      return this._renderAlert(props, key)
     }
 
     if (name === '_handle_') {
-      return this._renderHandleBtn(props)
+      return this._renderHandleBtn(props, key)
     }
 
     if (name === '_cancel_') {
-      return this._renderCancelBtn(props)
+      return this._renderCancelBtn(props, key)
     }
 
     return this._renderFormGroup(name, key, props)
