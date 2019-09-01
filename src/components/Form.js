@@ -56,7 +56,9 @@ const Input = ({
         minHeight: 90
       } : {})}
       {...others}
-    />
+    >
+      {children}
+    </Sigma>
     {icon && icon}
   </Sigma>
 )
