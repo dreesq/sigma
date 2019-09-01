@@ -241,6 +241,7 @@ class ActionForm extends Component {
             autoFocus={autoFocus}
             placeholder={placeholder}
             value={field.value}
+            type={field.type}
             name={field.name}
             error={errors[field.name]}
             onChange={this.onChange(field.name)}
