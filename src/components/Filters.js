@@ -112,14 +112,13 @@ export default class Filters extends Component {
             as={'select'}
             name={field.name}
             value={values[name]}
-            key={key}
             {...props.input}
           >
             {
               (field.values || []).map((value, key) => {
                 return (
-                  <option key={key} value={value}>
-                    {value}
+                  <option key={key} value={value.value}>
+                    {value.name}
                   </option>
                 )
               })
@@ -160,7 +159,6 @@ export default class Filters extends Component {
             name={name}
             onChange={this.onChange(field.name, true)}
             checked={+values[name] === 1}
-            key={key}
             {...props.input}
           />
         )
@@ -169,7 +167,6 @@ export default class Filters extends Component {
       default:
         fieldEl = (
           <Input
-            key={key}
             name={name}
             value={values[name]}
             placeholder={placeholder}
@@ -181,7 +178,7 @@ export default class Filters extends Component {
     }
 
     return (
-      <Col p={0} {...props.col}>
+      <Col p={0} {...props.col} key={key}>
         <Group>
           {label && <Label {...props.label}>{label}</Label>}
           {fieldEl}
