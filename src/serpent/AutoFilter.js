@@ -5,7 +5,7 @@ import Table from '../components/Table'
 import Card from '../components/Card'
 import Filters from '../components/Filters'
 import Alert from '../components/Alert'
-import Button from '../components/Button'
+import Text from '../components/Text'
 import {Input} from '../components/Form'
 import {Container, Row, Col} from '../components/Grid'
 import {get} from '../utils'
@@ -155,7 +155,7 @@ class AutoFilter extends Component {
         <Row>
           <Col>
             <Sigma position={'relative'} d={'flex'} alignItems={'center'} xs={'flex-wrap: wrap;'} sm={'flex-wrap: no-wrap;'}>
-              <h3>{title}</h3>
+              <Text as={'h3'} fontSize={28} m={[14, 0]}>{title}</Text>
               <Sigma ml={'auto'} d={'flex'} alignItems={'center'}>
                 {withSearch && <Input placeholder={'Search'} value={search} container={{mr: 13}} onChange={this.onSearch} />}
                 {headerExtra && headerExtra}
