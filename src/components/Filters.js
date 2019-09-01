@@ -213,13 +213,13 @@ export default class Filters extends Component {
     }
 
     str = str.join('&')
-    str = !str ? '/' : `?${str}`
+    str = !str ? '' : `?${str}`
 
     if (str === window.location.search) {
       return
     }
 
-    window.history.pushState('', '', str)
+    typeof window !== 'undefined' && window.history.pushState('', '', str)
   };
 
   parseQueryString = () => {

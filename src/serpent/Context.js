@@ -9,7 +9,7 @@ class Context extends Component {
   }
 
   async componentDidMount() {
-    const {client, debug} = this.props
+    const {client} = this.props
     await client.setup()
     this.setState({ loading: false })
   }

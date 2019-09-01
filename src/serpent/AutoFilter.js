@@ -231,6 +231,12 @@ class AutoFilter extends Component {
                               <tr key={key}>
                                 {
                                   fields.map((field, subKey) => {
+                                    let label = (
+                                      <Sigma md={'display: none;'} xs={'display: block;'} fontWeight={'600'}>
+                                        {field[1]}:
+                                      </Sigma>
+                                    );
+
                                     return (
                                       <td key={`${key}-${subKey}`}>
                                         {
@@ -238,12 +244,12 @@ class AutoFilter extends Component {
                                             let value = field[0] ? get(field[0], row) : row;
 
                                             if (typeof field[2] === 'function') {
-                                              return field[2](value, row);
+                                              return field[2](value, row, label);
                                             }
 
                                             return (
                                               <Fragment>
-                                                <Sigma md={'display: none;'} xs={'display: block;'} fontWeight={'600'}>{field[1]}:</Sigma>
+                                                {label}
                                                 {value}
                                               </Fragment>
                                             );
