@@ -110,6 +110,8 @@ class AutoCrud extends Component {
       autoFilterProps = {},
       withOptions = true,
       withActionAlert = true,
+      withSearch = true,
+      title,
       ...others
     } = this.props;
 
@@ -136,9 +138,10 @@ class AutoCrud extends Component {
           }}
         />
         <AutoFilter
+          title={title}
           ref={ref => this.autoFilter = ref}
           action={`autoFind${collection}`}
-          withSearch
+          withSearch={withSearch}
           filters={filters}
           fields={[
             ...fields,
