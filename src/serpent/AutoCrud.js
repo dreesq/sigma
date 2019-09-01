@@ -109,11 +109,12 @@ class AutoCrud extends Component {
       fields = [],
       autoFilterProps = {},
       withOptions = true,
-      withActionAlert = true
+      withActionAlert = true,
+      ...others
     } = this.props;
 
     return (
-      <div className={`autoCrud-${collection}`}>
+      <Sigma className={`autoCrud-${collection}`} {...others}>
         <ConfirmModal ref={ref => this.confirm = ref}/>
         <ActionModal
           ref={ref => this.modal = ref}
@@ -159,7 +160,7 @@ class AutoCrud extends Component {
           ]}
           {...autoFilterProps}
         />
-      </div>
+      </Sigma>
     );
   }
 }

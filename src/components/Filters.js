@@ -269,12 +269,17 @@ export default class Filters extends Component {
       withClear = true,
       handleText = 'Filter',
       clearFiltersText = 'Clear Filters',
+      fields = [],
       props = {
         dropdown: {},
         trigger: {},
         content: {}
       }
     } = this.props
+
+    if (!fields.length) {
+      return null;
+    }
 
     return (
       <Dropdown ref={ref => this.dropdown = ref} position={'static'} {...props.dropdown}>
