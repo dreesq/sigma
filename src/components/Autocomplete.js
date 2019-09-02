@@ -90,8 +90,8 @@ export default class Autocomplete extends Component {
   };
 
   handleKeyUp = e => {
-    const {value, selected} = this.state;
-    const {multi} = this.props;
+    let {value, selected} = this.state;
+    const {multi, name, onChange} = this.props;
 
     if ((e.keyCode === 46 || e.keyCode === 8) && multi && !value && selected.length) {
       return this.remove(null, selected.length - 1);
@@ -119,21 +119,17 @@ export default class Autocomplete extends Component {
 
     if (!multi) {
       if (value === '') {
-        selected = false;
+        selected = null;
         onChange({
           _event: e,
           target: {
             name,
-            value: false
+            value: null
           }
         });
       }
 
-      value = !multi && selected ? selected.name : '';
-
-      if (!selected) {
-        value = '';
-      }
+      value = selected ? selected.name : '';
 
       newState = {
         value,

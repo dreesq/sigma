@@ -270,9 +270,9 @@ class ActionForm extends Component {
 
         if (isToggle) {
           fieldValue = checked ? 1 : 0;
-        } else if (typeof value === 'object' && !Array.isArray(value)) {
+        } else if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
           fieldValue = value.value;
-        } else if (typeof value === 'object' && Array.isArray(value)) {
+        } else if (typeof value === 'object' && Array.isArray(value) && value !== null) {
           fieldValue = value.map(item => item.value);
         }
 
@@ -312,11 +312,11 @@ class ActionForm extends Component {
 
       let value = form[k].value;
 
-      if (form[k].type === 'autocomplete') {
+      if (form[k].type === 'autocomplete' && typeof form[k].value === 'object') {
         if (Array.isArray(form[k].value)) {
-          value = form[k].value.map(item => item.value);
+          value = form[k].value.map(item => item.value || item);
         } else {
-          value = form[k].value.value;
+          value = form[k].value === null ? null : form[k].value.value;
         }
       }
 
