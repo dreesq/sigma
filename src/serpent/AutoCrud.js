@@ -40,6 +40,7 @@ class ActionModal extends Component {
       <Modal ref={ref => this.modal = ref} onClose={e => this.modal.toggle(false)} {...props}>
         <h2>{`${edit ? 'Update' : 'Create'} ${collection}`}</h2>
         <ActionForm
+          withAlert
           withClose
           defaultValues={data}
           {...action}
