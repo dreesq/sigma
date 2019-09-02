@@ -37,7 +37,11 @@ class ActionModal extends Component {
     }
 
     return (
-      <Modal ref={ref => this.modal = ref} onClose={e => this.modal.toggle(false)} {...props}>
+      <Modal
+        ref={ref => this.modal = ref}
+        onClose={e => this.modal.toggle(false)}
+        {...props}
+      >
         <h2>{`${edit ? 'Update' : 'Create'} ${collection}`}</h2>
         <ActionForm
           withAlert
@@ -124,7 +128,7 @@ class AutoCrud extends Component {
           ref={ref => this.modal = ref}
           collection={collection}
           props={{
-            modalWidth
+            width: modalWidth
           }}
           action={{
             focusFirst: true,
