@@ -427,7 +427,7 @@ class ActionForm extends Component {
         mb={12}
         color={alert.color}
         d={'flex'}
-        alignItems={'center'}
+        alignItems={'flex-start'}
         {...this._makeProps(props, 'alert')}
       >
         {alert.message}
