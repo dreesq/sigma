@@ -47,9 +47,7 @@ class ActionForm extends Component {
 
         if (typeof defaultValues[key] === 'object' && Array.isArray(defaultValues[key])) {
           value = defaultValues[key].map(item => item.value);
-        }
-
-        if (typeof defaultValues[key] === 'object' && !Array.isArray(defaultValues[key])) {
+        } else if (typeof defaultValues[key] === 'object' && !Array.isArray(defaultValues[key])) {
           value = defaultValues[key].value;
         }
       } else if (parsed.hasOwnProperty('value')) {
