@@ -39,10 +39,12 @@ class ActionForm extends Component {
     let form = {}
 
     for (const key in struct) {
+      let parsed = this.parseField(struct[key]);
+
       form[key] = {
-        ...this.parseField(struct[key]),
+        ...parsed,
         name: key,
-        value: defaultValues[key] || ''
+        value: defaultValues[key] || parsed.value || ''
       }
     }
 
