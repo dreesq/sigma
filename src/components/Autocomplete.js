@@ -26,7 +26,7 @@ export default class Autocomplete extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: props.value && !props.multi ? props.value.name : '',
+      value: (props.value && !props.multi) ? props.value.name : '',
       selected: props.value || (props.multi ? [] : {}),
       items: [],
       loading: false,
