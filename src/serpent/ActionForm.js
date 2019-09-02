@@ -44,12 +44,6 @@ class ActionForm extends Component {
 
       if (defaultValues.hasOwnProperty(key)) {
         value = defaultValues[key];
-
-        if (typeof defaultValues[key] === 'object' && Array.isArray(defaultValues[key])) {
-          value = defaultValues[key].map(item => item.value);
-        } else if (typeof defaultValues[key] === 'object' && !Array.isArray(defaultValues[key])) {
-          value = defaultValues[key].value;
-        }
       } else if (parsed.hasOwnProperty('value')) {
         value = parsed.value;
       }
@@ -316,7 +310,17 @@ class ActionForm extends Component {
         continue;
       }
 
-      payload[k] = form[k].value;
+      let value = form[k].value;
+
+      if (form[k].type === 'autocomplete') {
+        if (Array.isArray(form[k].value)) {
+          value = form[k].value.map(item => item.value);
+        } else {
+          value = form[k].value.value;
+        }
+      }
+
+      payload[k] = value;
     }
 
     return payload
