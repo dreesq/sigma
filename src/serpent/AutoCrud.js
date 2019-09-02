@@ -113,6 +113,7 @@ class AutoCrud extends Component {
       withActionAlert = true,
       withSearch = true,
       title,
+      modalWidth = 420,
       ...others
     } = this.props;
 
@@ -122,6 +123,9 @@ class AutoCrud extends Component {
         <ActionModal
           ref={ref => this.modal = ref}
           collection={collection}
+          props={{
+            modalWidth
+          }}
           action={{
             focusFirst: true,
             onHandled: async e => {

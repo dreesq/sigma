@@ -40,11 +40,18 @@ class ActionForm extends Component {
 
     for (const key in struct) {
       let parsed = this.parseField(struct[key]);
+      let value = '';
+
+      if (defaultValues.hasOwnProperty(key)) {
+        value = defaultValues[key];
+      } else if (parsed.hasOwnProperty('value')) {
+        value = parsed.value;
+      }
 
       form[key] = {
         ...parsed,
         name: key,
-        value: defaultValues[key] || parsed.value || ''
+        value
       }
     }
 
