@@ -32,7 +32,8 @@ const form = {
     label: 'Autocomplete',
     type: 'autocomplete',
     validation: 'required|number',
-    values: 'getDynamicValues'
+    values: 'getDynamicValues',
+    multi: true
   },
 }
 

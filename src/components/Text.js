@@ -12,7 +12,7 @@ export default ({
 }) => (
   <Sigma
     as={'p'}
-    className={`sg-text-component ${className}`}
+    className={`text-component${className ? ` ${className}` : ''}`}
     {...(color ? {color: props => getValue(`colors.${color}`, props)} : {})}
     {...(ellipsis ? {
       textOverflow: 'ellipsis',

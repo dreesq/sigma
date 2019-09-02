@@ -17,6 +17,7 @@ import Filters from './Filters'
 import Toggle from './Toggle'
 import Radio from './Radio'
 import Autocomplete from './Autocomplete'
+import ConfirmModal from './ConfirmModal'
 
 export * from './Form'
 export * from './Grid'
@@ -40,5 +41,6 @@ export {
   Filters,
   Toggle,
   Radio,
-  Autocomplete
+  Autocomplete,
+  ConfirmModal
 }

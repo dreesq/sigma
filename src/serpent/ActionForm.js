@@ -38,13 +38,7 @@ class ActionForm extends Component {
     let struct = structure || client.actions.getAction(action)
     let form = {}
 
-    main: for (const key in struct) {
-      for (let subKey in struct[key]) {
-        if (typeof struct[key][subKey] === 'object') {
-          continue main;
-        }
-      }
-
+    for (const key in struct) {
       form[key] = {
         name: key,
         value: defaultValues[key] || '',
@@ -61,7 +55,6 @@ class ActionForm extends Component {
   parseField = field => {
     let result = {
       label: '',
-      values: '',
       placeholder: '',
       type: '',
     }
@@ -69,11 +62,15 @@ class ActionForm extends Component {
     let parsed = field.split('|').map(rule => rule.split(':')).find(rule => rule[0] === 'form')
 
     if (parsed) {
-      parsed = JSON.parse(atob(parsed[1]))
-      result.type = parsed[0]
-      result.label = parsed[1]
-      result.placeholder = parsed[2]
-      result.values = parsed[3]
+      try {
+        parsed = JSON.parse(atob(parsed[1]))
+        result = {
+          ...result,
+          ...parsed
+        }
+      } catch (e) {
+
+      }
     }
 
     return result
@@ -171,6 +168,8 @@ class ActionForm extends Component {
             error={errors[field.name]}
             name={field.name}
             onChange={this.onChange(field.name)}
+            value={field.value}
+            multi={field.multi}
             {...props}
           />
         );
@@ -257,7 +256,18 @@ class ActionForm extends Component {
 
       this.setState(state => {
         state.errors[field] = ''
-        state.form[field].value = isToggle ? (checked ? 1 : 0) : (typeof value === 'object' ? value.value : value);
+
+        let fieldValue = value;
+
+        if (isToggle) {
+          fieldValue = checked ? 1 : 0;
+        } else if (typeof value === 'object' && !Array.isArray(value)) {
+          fieldValue = value.value;
+        } else if (typeof value === 'object' && Array.isArray(value)) {
+          fieldValue = value.map(item => item.value);
+        }
+
+        state.form[field].value = fieldValue;
         return state
       })
     }
@@ -539,7 +549,9 @@ class ActionForm extends Component {
         <Form onSubmit={this.handle}>
           {debug && this._renderDebug()}
           {this._renderAlert(props)}
-          {Object.keys(form).map((field, key) => this._renderFormGroup(field, key, props))}
+          {Object.keys(form).map((field, key) => {
+            return this._renderFormGroup(field, key, props);
+          })}
           <Sigma d={'flex'}>
             {onCancel && this._renderCancelBtn(props)}
             {this._renderHandleBtn(props)}

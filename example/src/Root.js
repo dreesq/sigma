@@ -194,7 +194,6 @@ export default class Root extends Component {
               <Col md={'width: 60%'}>
                 <Card mt={20}>
                   <S position={'relative'}>
-                    <Autocomplete m={[10, 0]} placeholder={'Autocomplete'} onChange={() => {}} name={'search'} onSearch={this.onSearch}/>
                     <Filters
                       fields={[
                         {
@@ -318,6 +317,14 @@ export default class Root extends Component {
                         <option>C</option>
                       </Input>
                       <Text>Input info</Text>
+                    </Group>
+                    <Group>
+                      <Label>Multi Autocomplete</Label>
+                      <Autocomplete m={[10, 0]} multi placeholder={'Autocomplete'} onChange={() => {}} name={'search'} onSearch={this.onSearch}/>
+                    </Group>
+                    <Group>
+                      <Label>Autocomplete</Label>
+                      <Autocomplete m={[10, 0]} placeholder={'Autocomplete'} onChange={() => {}} name={'search'} onSearch={this.onSearch}/>
                     </Group>
                   </Form>
                   <Button mt={12} loading block>Submit</Button>

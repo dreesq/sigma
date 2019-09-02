@@ -7,11 +7,10 @@ export default ({
 }) => (
   <Sigma
     bg={'#f7f7f7'}
-    position={'absolute'}
     d={'flex'}
     alignItems={'center'}
     h={60}
-    bottom={0}
+    mt={30}
     w={'100%'}
     {...others}
   >

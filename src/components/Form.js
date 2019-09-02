@@ -88,7 +88,7 @@ const Group = ({
   <Sigma
     mb={12}
     css={props => `
-        .sg-text-component {
+        .text-component {
             font-size: 14px;
             margin-top: 4px;
         }

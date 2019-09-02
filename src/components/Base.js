@@ -33,7 +33,6 @@ const base = css`
       margin: 0;
       min-height: 100%;
       position: relative;
-      padding-bottom: 60px;
     }
     
     body, input, textarea, select {

@@ -41,6 +41,7 @@ export default class extends Component {
               <Col width={{xs: '100%', md: '40%'}} xs={'width: 100%'}>
                 <Card>
                   <ActionForm
+                    debug
                     action={'testAction'}
                     withLoading
                     withAlert
