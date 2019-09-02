@@ -295,11 +295,15 @@ class ActionForm extends Component {
   }
 
   getValues = () => {
-    const {form} = this.state
+    const {form, base} = this.state
     let payload = {}
 
     for (let k in form) {
-      payload[k] = form[k].value
+      if (form[k].ifChanged && form[k].value === base[k].value) {
+        continue;
+      }
+
+      payload[k] = form[k].value;
     }
 
     return payload
@@ -551,9 +555,28 @@ class ActionForm extends Component {
         <Form onSubmit={this.handle}>
           {debug && this._renderDebug()}
           {this._renderAlert(props)}
-          {Object.keys(form).map((field, key) => {
-            return this._renderFormGroup(field, key, props);
-          })}
+          <Row>
+            {
+              Object.keys(form).map((field, key) => {
+                let fieldEl = this._renderFormGroup(field, key, props);
+                let size = form[field].size || 10;
+                let width = {};
+
+                if (typeof size === 'object') {
+                  width = size;
+                } else {
+                  width.sm = `${size * 10}%`
+                }
+
+                return (
+                  <Col width={width} key={key}>
+                    {fieldEl}
+                  </Col>
+                );
+
+              })
+            }
+          </Row>
           <Sigma d={'flex'}>
             {onCancel && this._renderCancelBtn(props)}
             {this._renderHandleBtn(props)}

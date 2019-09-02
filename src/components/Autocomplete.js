@@ -237,6 +237,8 @@ export default class Autocomplete extends Component {
             ml={selected.length ? 5 : ''}
             error={error}
             p={[6, 0]}
+            maxWidth={'100%'}
+            width={120}
             value={value}
             placeholder={!selected.length ? placeholder : '' }
             fontSize={15}

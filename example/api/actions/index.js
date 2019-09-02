@@ -4,12 +4,14 @@ const form = {
   name: {
     label: 'Name',
     placeholder: 'Name',
-    validation: 'string|required'
+    validation: 'string|required',
+    size: '3'
   },
   type: {
     type: 'text',
     label: 'Type',
-    placeholder: 'Select a type'
+    placeholder: 'Select a type',
+    size: '7'
   },
   description: {
     label: 'Description',
@@ -26,14 +28,16 @@ const form = {
     label: 'Autocomplete',
     type: 'autocomplete',
     validation: 'required|number',
-    values: 'getStaticValues'
+    values: 'getStaticValues',
+    size: '5'
   },
   lastField: {
     label: 'Autocomplete',
     type: 'autocomplete',
     validation: 'required|number',
     values: 'getDynamicValues',
-    multi: true
+    multi: true,
+    size: '5'
   },
 }
 

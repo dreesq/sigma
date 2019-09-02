@@ -65,6 +65,7 @@
     "dist"
   ],
   "dependencies": {
+    "@dreesq/serpent": "^2.4.1",
     "babel-plugin-transform-react-createelement-to-jsx": "^1.1.0",
     "deepmerge": "^4.0.0",
     "styled-components": "^4.3.2"
