@@ -468,10 +468,14 @@ class ActionForm extends Component {
 
     return (
       <Button
-        onClick={onCancel}
+        onClick={e => {
+          e.preventDefault();
+          onCancel(e);
+        }}
         color={'secondary'}
         className={'cancel-btn'}
         key={'cancel-btn'}
+        mr={5}
         {...this._makeProps(props, 'cancel')}
       >
         {cancelText}
