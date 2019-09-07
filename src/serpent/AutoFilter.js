@@ -147,11 +147,12 @@ class AutoFilter extends Component {
       headerExtra,
       bodyExtra,
       footerExtra,
-      withPagination
+      withPagination,
+      props = {}
     } = this.props
 
     return (
-      <Container fluid>
+      <Container fluid {...props.container}>
         <Row>
           <Col>
             <Sigma position={'relative'} d={'flex'} alignItems={'center'} xs={'flex-wrap: wrap;'} sm={'flex-wrap: no-wrap;'}>
@@ -168,6 +169,7 @@ class AutoFilter extends Component {
                   ]}
                   onFilter={this.onFilter}
                   fields={filters}
+                  {...props.filters}
                 />
               </Sigma>
             </Sigma>
@@ -175,7 +177,7 @@ class AutoFilter extends Component {
           {
             errors && (
               <Col>
-                <Alert color={'danger'}>
+                <Alert color={'danger'} {...props.alert}>
                   An error occurred while fetching the data
                 </Alert>
               </Col>
@@ -183,10 +185,10 @@ class AutoFilter extends Component {
           }
           {bodyExtra}
           <Col>
-            <Card className={loading ? 'loading' : ''}>
+            <Card className={loading ? 'loading' : ''} {...props.card}>
               {
                 !loading && data.length === 0 && (
-                  <Alert color={'secondary'}>
+                  <Alert color={'secondary'} {...props.alert}>
                     There are no entries to display
                   </Alert>
                 )
@@ -210,7 +212,8 @@ class AutoFilter extends Component {
                       td {
                         display: block;
                       }
-                    `}>
+                    `}
+                    {...props.table}>
                       <thead>
                         <tr>
                           {
@@ -266,7 +269,11 @@ class AutoFilter extends Component {
                         }
                       </tbody>
                     </Table>
-                    {withPagination && pagination.pages > 1 && <Pagination currentPage={page} totalPages={pagination.pages} onChange={this.onPageChange} mt={11} />}
+                    {
+                      withPagination && pagination.pages > 1 && (
+                        <Pagination currentPage={page} totalPages={pagination.pages} onChange={this.onPageChange} mt={11} />
+                      )
+                    }
                   </Fragment>
                 )
               }
