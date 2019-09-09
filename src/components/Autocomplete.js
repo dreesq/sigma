@@ -267,6 +267,7 @@ export default class Autocomplete extends Component {
       renderNoItems,
       renderItem,
       multi = false,
+      onSearch,
       ...others
     } = this.props;
 
@@ -281,7 +282,7 @@ export default class Autocomplete extends Component {
               maxHeight={165}
               mt={10}
               zIndex={'3'}
-              overflow={'scroll'}
+              overflowY={'auto'}
               p={[10, 30]}
             >
               {

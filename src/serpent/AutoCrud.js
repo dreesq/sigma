@@ -160,7 +160,7 @@ class AutoCrud extends Component {
           headerExtra={(
             <Button mr={5} color={'success'} onClick={this.onCreate} whiteSpace={'nowrap'}>{`Create ${collection}`}</Button>
           )}
-          bodyExtra={[
+          bodyExtra={
             withActionAlert && (<Col>
               <ActionAlert
                 m={[10, 0]}
@@ -169,7 +169,7 @@ class AutoCrud extends Component {
                 renderError={false}
               />
             </Col>)
-          ]}
+          }
           {...autoFilterProps}
         />
       </Sigma>

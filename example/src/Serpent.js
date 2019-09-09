@@ -47,9 +47,9 @@ export default class extends Component {
                     withAlert
                     withValidation={false}
                     render={{
-                      name() {
+                      name({key}) {
                         return (
-                          <h1>Name field</h1>
+                          <h1 key={key}>Name field</h1>
                         )
                       }
                     }}

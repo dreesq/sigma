@@ -114,4 +114,10 @@ const helpers = [
   ...attrHelpers
 ]
 
-export default styled.div(...helpers)
+const Sigma = styled.div(...helpers);
+
+Sigma.propTypes = {
+  color: () => null
+};
+
+export default Sigma;
