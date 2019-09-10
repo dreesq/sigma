@@ -15,7 +15,7 @@ export default class Pagination extends Component {
 
     if (prevProps.currentPage !== currentPage) {
       this.setState({
-        currentPage: nextProps.currentPage
+        currentPage: prevProps.currentPage
       })
     }
   }

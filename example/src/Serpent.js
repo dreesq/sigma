@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react'
+import React, {Component} from 'react'
 import Serpent from '@dreesq/serpent-client'
 import axios from 'axios'
 import {ThemeProvider} from 'styled-components'
@@ -8,13 +8,11 @@ import {
   Base,
   ActionForm,
   ActionLoader,
-  AutoFilter,
   Container,
   Row,
   Col,
-  Sigma,
   AutoCrud,
-  ActionAlert
+  Text
 } from '@dreesq/sigma'
 
 export default class extends Component {
@@ -39,6 +37,7 @@ export default class extends Component {
           <Container>
             <Row mt={32}>
               <Col width={{xs: '100%', md: '40%'}} xs={'width: 100%'}>
+                <Text as={'h1'}>Page Title</Text>
                 <Card>
                   <ActionForm
                     debug

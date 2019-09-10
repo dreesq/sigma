@@ -83,7 +83,7 @@ export default class Root extends Component {
               <Row>
                 <Col>
                   <S as={'ul'} d={'flex'} alignItems={'center'}>
-                    <li><a href={'#'}>Home</a></li>
+                    <li><a href={'/'}>Home</a></li>
                     <S as={'li'} ml={'auto'} d={'flex'} alignItems={'center'}>
                       <Dropdown>
                         {
@@ -137,7 +137,7 @@ export default class Root extends Component {
                   <S mb={16}>
                     <Text d={'inline'} mr={4}>Here's a</Text>
                     <Tooltip>
-                      <a href={'#'}>Tooltip</a>
+                      <a href={'javascript:void(0)'}>Tooltip</a>
                       <S width={190}>
                         <Card ml={5} p={[10, 8]}>
                                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti facere fuga impedit ipsa pariatur.
@@ -283,7 +283,7 @@ export default class Root extends Component {
                   <h3>Card</h3>
                   <Text as={'p'}>
                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, ut.
-                    {' '}<a href={'#'}>A link</a>
+                    {' '}<a href={'/'}>A link</a>
                   </Text>
                   <Button mr={4} inverted>Button</Button>
                   <Button color={'success'} loading>Success</Button>
