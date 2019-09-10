@@ -494,15 +494,17 @@ class ActionForm extends Component {
       value: form[field].value,
       label: this.getLabel(form[field]),
       key
-    }) : [
-      this._renderLabel(form[field], this._makeProps(props, 'label', field)),
-      this._renderField(form[field], this._makeProps(props, 'input', field), focusFirst ? key === 0 : false),
-      errors[field] && (
-        <Text color={'danger'}>
-          {this.getMessage(errors[field])}
-        </Text>
-      )
-    ]
+    }) : (
+      <Sigma>
+        {this._renderLabel(form[field], this._makeProps(props, 'label', field))}
+        {this._renderField(form[field], this._makeProps(props, 'input', field), focusFirst ? key === 0 : false)}
+        {errors[field] && (
+          <Text color={'danger'}>
+            {this.getMessage(errors[field])}
+          </Text>
+        )}
+      </Sigma>
+    )
 
     return (
       <Group key={key} {...this._makeProps(props, 'group', field)}>
@@ -516,7 +518,7 @@ class ActionForm extends Component {
     const css = `
         width: 100%;
         max-height: 340px;
-        overflow: scroll;
+        overflow-y: scroll;
         word-break: inherit;
         background: #292828;
         color: #4dff85;
@@ -594,7 +596,6 @@ class ActionForm extends Component {
                     {fieldEl}
                   </Col>
                 );
-
               })
             }
           </Row>

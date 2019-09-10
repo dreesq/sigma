@@ -5,15 +5,16 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@dreesq/serpent": "^2.3.6",
-    "@dreesq/serpent-client": "^1.8.6",
+    "@dreesq/serpent": "^2.5.5",
+    "@dreesq/serpent-client": "^1.8.9",
     "@dreesq/sigma": "file:..",
     "axios": "^0.19.0",
     "express": "^4.17.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "^1.1.4"
+    "react-scripts": "^1.1.4",
+    "styled-components": "^4.3.2"
   },
   "scripts": {
     "start": "react-scripts start",

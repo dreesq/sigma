@@ -29,7 +29,8 @@ export default class Radio extends Component {
             vertical-align: top;
             cursor: pointer;
             text-align: center;
-            top: -1px;
+            top: 0 !important;
+            left: 0 !important;
           }
          
         }
@@ -44,8 +45,8 @@ export default class Radio extends Component {
               border-radius: 50%;
               display: inline-block;
               position: absolute;
-              left: 4px;
-              bottom: 2px;
+              left: 4px !important;
+              bottom: 4px !important;
             }
           }
         }

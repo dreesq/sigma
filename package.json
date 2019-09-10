@@ -25,7 +25,8 @@
   "peerDependencies": {
     "prop-types": "^15.5.4",
     "react": "^15.0.0 || ^16.0.0",
-    "react-dom": "^15.0.0 || ^16.0.0"
+    "react-dom": "^15.0.0 || ^16.0.0",
+    "styled-components": "^4.3.2"
   },
   "optionalDependencies": {
     "@dreesq/serpent-client": "^1.8.4"
@@ -59,15 +60,13 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-postcss": "^1.6.2",
-    "rollup-plugin-url": "^1.4.0"
+    "rollup-plugin-url": "^1.4.0",
+    "babel-plugin-transform-react-createelement-to-jsx": "^1.1.0"
   },
   "files": [
     "dist"
   ],
   "dependencies": {
-    "@dreesq/serpent": "^2.4.1",
-    "babel-plugin-transform-react-createelement-to-jsx": "^1.1.0",
-    "deepmerge": "^4.0.0",
-    "styled-components": "^4.3.2"
+    "deepmerge": "^4.0.0"
   }
 }

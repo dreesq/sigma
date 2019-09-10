@@ -19,7 +19,7 @@ export default class OutsideClick extends Component {
   }
 
   render() {
-    const {children, ...others} = this.props
+    const {children, onOutsideClick, ...others} = this.props
 
     return (
       <Sigma
