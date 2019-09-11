@@ -40,6 +40,12 @@ class ActionForm extends Component {
 
     for (const key in struct) {
       let parsed = this.parseField(struct[key]);
+      parsed.visible = parsed.hasOwnProperty('visible') ? parsed.visible : true;
+
+      if (!parsed.visible) {
+        continue;
+      }
+
       let value = '';
 
       if (defaultValues.hasOwnProperty(key)) {
