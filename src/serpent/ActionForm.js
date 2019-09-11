@@ -382,10 +382,10 @@ class ActionForm extends Component {
       data,
       form: base,
       loading: false,
-      ...(typeof data === 'string' ? {
+      ...(data && (typeof data === 'string' || data.message) ? {
         alert: {
           color: 'success',
-          message: data
+          message: data.message || data
         }
       } : {})
     })
