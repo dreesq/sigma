@@ -579,6 +579,10 @@ class ActionForm extends Component {
     const layout = this._getLayout()
     const {onCancel, props = {}, debug = false} = this.props
 
+    if (!Object.keys(form).length) {
+      return null;
+    }
+
     if (!layout) {
       return (
         <Form onSubmit={this.handle}>
