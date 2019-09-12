@@ -114,12 +114,4 @@ const helpers = [
   ...attrHelpers
 ]
 
-const Sigma = styled.div`
-  ${props => helpers.map(helper => helper(props)).join('\n')}
-`;
-
-Sigma.propTypes = {
-  color: () => null
-};
-
-export default Sigma;
+export default styled.div(...helpers);
