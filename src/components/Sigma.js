@@ -69,7 +69,15 @@ const others = [
   'wordBreak',
   'borderRadius',
   'margin',
+  'marginLeft',
+  'marginTop',
+  'marginBottom',
+  'marginRight',
   'padding',
+  'paddingLeft',
+  'paddingRight',
+  'paddingBottom',
+  'paddingTop',
   'visibility',
   'userSelect'
 ]
@@ -89,29 +97,58 @@ const mappings = {
   d: 'display',
   w: 'width',
   h: 'height',
+  t: 'top',
+  l: 'left',
+  r: 'right',
+  b: 'bottom',
+  c: 'color',
   ...others.reduce((all, current) => {
     all[current] = toDashed(current)
     return all
   }, {})
 }
 
-const attrHelpers = Object.keys(mappings).map(key => props => toCss(mappings[key],
-  typeof props[key] === 'function' ? props[key](props) : props[key],
-  getValue('breakpoints', props))
-)
+const attrHelpers = props => {
+  let result = [];
+  let bps = getValue('breakpoints', props);
+
+  for (const prop in props) {
+    if (!mappings[prop]) {
+      continue;
+    }
+
+    let css = typeof props[prop] === 'function' ? props[prop](props) : props[prop];
+    result.push(toCss(mappings[prop], css, bps));
+  }
+
+  return result.join('\n');
+};
 
 const rawHelpers = [
   props => props.css && (typeof props.css === 'function' ? props.css(props) : props.css),
   props => props.hover && (typeof props.hover === 'function' ? toHover(props.hover(props)) : toHover(props.hover)),
-  ...Object.keys(getValue('breakpoints')).map(
-    bp => props =>
-      props[bp] && toMedia(getValue(`breakpoints.${bp}`, props), typeof props[bp] === 'function' ? props[bp](props) : props[bp])
-  )
-]
+];
+
+const bps = getValue('breakpoints');
+const keys = Object.keys(bps);
+const mobileHelpers = keys.map((bp, index) => {
+  return props => {
+    let from = getValue(`breakpoints.${bp}`, props);
+    let to = getValue(`breakpoints.${keys[index + 1]}`, props, undefined);
+    let css = bp => typeof props[bp] === 'function' ? props[bp](props) : props[bp];
+
+    return [
+      props[`${bp}Up`] && toMedia(from, css(`${bp}Up`)),
+      props[bp] && toMedia(from, css(bp), to),
+      props[`${bp}Down`] && toMedia(undefined, css(`${bp}Down`), from)
+    ].filter(item => !!item).join('\n');
+  };
+});
 
 const helpers = [
   ...rawHelpers,
-  ...attrHelpers
+  attrHelpers,
+  ...mobileHelpers
 ]
 
 export default styled.div(...helpers);

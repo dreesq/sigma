@@ -74,7 +74,8 @@ const Label = ({
     mt={10}
     mb={10}
     fontWeight={'500'}
-    {...(error ? {color: props => getValue('colors.danger', props)} : {})}
+    {...(error ? {c: props => getValue('colors.danger', props)} : {})}
+    {...others}
   >
     {children}
   </Sigma>
@@ -95,6 +96,7 @@ const Group = ({
         
         ${css ? (typeof css === 'function' ? css(props) : css) : ''}
     `}
+    {...others}
   >
     {children}
   </Sigma>

@@ -11,11 +11,11 @@ export default class Pagination extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {currentPage} = this.state;
+    const {currentPage} = this.props;
 
     if (prevProps.currentPage !== currentPage) {
       this.setState({
-        currentPage: prevProps.currentPage
+        currentPage: currentPage
       })
     }
   }

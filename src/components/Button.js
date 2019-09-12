@@ -41,14 +41,14 @@ export default ({
     {...(inverted ? {
       bg: 'transparent',
       border: props => `1px solid ${getValue(`colors.${color}`, props)}`,
-      color: props => getValue(`colors.${color}`, props),
+      c: props => getValue(`colors.${color}`, props),
       hover: props => `
             border-color: ${shadeColor(getValue(`colors.${color}`, props), 20)};
             color: ${shadeColor(getValue(`colors.${color}`, props), 20)};
             ${hover ? (typeof hover === 'function' ? hover(props) : hover) : ''}
         `
     } : {
-      color: '#fff',
+      c: '#fff',
       bg: props => getValue(`colors.${color}`, props),
       hover: props => `
             background: ${shadeColor(getValue(`colors.${color}`, props), 20)};

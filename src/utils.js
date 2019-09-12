@@ -74,7 +74,7 @@ export const shadeColor = (color, percent) => {
  * @returns {string|*}
  */
 
-export const toString = value => {
+export const toValue = value => {
   if (Array.isArray(value)) {
     return value.map(value => typeof value === 'number' ? `${value}${value === 0 ? '' : 'px'}` : value).join(' ')
   }
@@ -94,10 +94,10 @@ export const toString = value => {
  */
 
 export const toMedia = (from, css, to) => `
-    @media screen and (min-width: ${from}px) ${typeof to !== 'undefined' ? `and (max-width: ${to}px)` : ''} {
+    @media screen ${typeof from !== 'undefined' ? `and (min-width: ${from}px)` : ''} ${typeof to !== 'undefined' ? `and (max-width: ${to}px)` : ''} {
         ${css}
     }
-`
+`;
 
 /**
  * Given css returns the css code
@@ -125,22 +125,38 @@ export const toCss = (key, value, bps) => {
     return
   }
 
-  let css = ``
+  let keys = Object.keys(bps);
+  let css = [];
 
   if (typeof value === 'object' && !Array.isArray(value)) {
     for (const bp in value) {
-      if (!bps.hasOwnProperty(bp)) {
+      let from = bps[bp];
+      let to = bps[keys[keys.indexOf(bp) + 1]] || undefined;
+
+      if (!bps.hasOwnProperty(bp) && bp.indexOf('Down') === -1 && bp.indexOf('Up') === -1) {
         continue
       }
 
-      css += toMedia(bps[bp], `${key}: ${toString(value[bp])};`)
+      if (bp.indexOf('Down') > -1) {
+        let base = bp.replace('Down', '');
+        to = bps[base];
+        from = undefined;
+      }
+
+      if (bp.indexOf('Up') > -1) {
+        let base = bp.replace('Up', '');
+        from = bps[base];
+        to = undefined;
+      }
+
+      css += toMedia(from, `${key}: ${toValue(value[bp])};`, to);
     }
 
     if (value.any) {
-      css += `${key}: ${toString(value.any)};`
+      css += `${key}: ${toValue(value.any)};`
     }
   } else {
-    css = `${key}: ${toString(value)};`
+    css = `${key}: ${toValue(value)};`
   }
 
   return css

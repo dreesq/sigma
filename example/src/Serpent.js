@@ -36,7 +36,7 @@ export default class extends Component {
           <ActionLoader />
           <Container>
             <Row mt={32}>
-              <Col width={{xs: '100%', md: '40%'}} xs={'width: 100%'}>
+              <Col mdUp={'width: 40%'}>
                 <Text as={'h1'}>Page Title</Text>
                 <Card>
                   <ActionForm
@@ -67,7 +67,7 @@ export default class extends Component {
                     }} />
                 </Card>
               </Col>
-              <Col width={{xs: '100%', md: '60%'}} p={0}>
+              <Col mdUp={'width: 60%;'} p={0}>
                 <AutoCrud
                   collection={'Post'}
                   filters={[

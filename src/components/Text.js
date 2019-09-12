@@ -13,7 +13,7 @@ export default ({
   <Sigma
     as={'p'}
     className={`text-component${className ? ` ${className}` : ''}`}
-    {...(color ? {color: props => getValue(`colors.${color}`, props)} : {})}
+    {...(color ? {c: props => getValue(`colors.${color}`, props)} : {})}
     {...(ellipsis ? {
       textOverflow: 'ellipsis',
       overflow: 'hidden',

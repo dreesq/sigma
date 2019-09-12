@@ -196,15 +196,7 @@ class AutoFilter extends Component {
               {
                 data.length > 0 && (
                   <Fragment>
-                    <Table md={`
-                      thead {
-                        display: table-row-group;
-                      }
-                      
-                      td {
-                        display: table-cell;
-                      }
-                    `} xs={`
+                    <Table mdDown={`
                       thead {
                         display: none;
                       }
@@ -236,7 +228,7 @@ class AutoFilter extends Component {
                                 {
                                   fields.map((field, subKey) => {
                                     let label = (
-                                      <Sigma md={'display: none;'} xs={'display: block;'} fontWeight={'600'}>
+                                      <Sigma mdDown={'display: block;'} d={'none'} fontWeight={'600'}>
                                         {field[1]}:
                                       </Sigma>
                                     );
