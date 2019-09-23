@@ -47,6 +47,7 @@ export default class Radio extends Component {
               position: absolute;
               left: 4px !important;
               bottom: 4px !important;
+              top: 4px !important;
             }
           }
         }
