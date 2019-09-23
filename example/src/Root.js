@@ -111,7 +111,7 @@ export default class Root extends Component {
           </Nav>
           <Container>
             <Row>
-              <Col md={'width: 40%'}>
+              <Col smUp={'width: 40%'}>
                 <S
                   p={[50, 0]}
                   m={'20px auto'}
@@ -191,7 +191,7 @@ export default class Root extends Component {
                   <Pagination totalPages={23} onChange={this.onChange} textAlign={'right'} mt={11} />
                 </Card>
               </Col>
-              <Col md={'width: 60%'}>
+              <Col smUp={'width: 60%'}>
                 <Card mt={20}>
                   <S position={'relative'}>
                     <Filters
