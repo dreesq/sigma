@@ -67,6 +67,7 @@
     "dist"
   ],
   "dependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
     "deepmerge": "^4.0.0"
   }
 }
