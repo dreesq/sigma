@@ -42,11 +42,6 @@ class ActionForm extends Component {
     for (const key in struct) {
       let parsed = this.parseField(struct[key]);
       parsed.visible = parsed.hasOwnProperty('visible') ? parsed.visible : true;
-
-      if (!parsed.visible) {
-        continue;
-      }
-
       let value = '';
 
       if (defaultValues.hasOwnProperty(key)) {
@@ -146,7 +141,7 @@ class ActionForm extends Component {
     const {errors} = this.state
     const {client} = this.context
 
-    if (!field || field.name === 'id') {
+    if (!field || field.name === 'id' || !field.visible) {
       return null
     }
 
