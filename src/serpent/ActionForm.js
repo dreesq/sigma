@@ -32,11 +32,15 @@ class ActionForm extends Component {
   }
 
   componentDidMount() {
-    const {action, structure = false, defaultValues = {}} = this.props
+    const {action, structure = false, defaultValues = {}, preprocess = false} = this.props
     const {client} = this.context
 
     let struct = structure || client.actions.getAction(action)
     let form = {}
+
+    if (typeof preprocess === 'function') {
+      struct = preprocess(struct)
+    }
 
     for (const key in struct) {
       let parsed = this.parseField(struct[key]);
