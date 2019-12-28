@@ -16,6 +16,7 @@ import {
   Radio,
   Autocomplete
 } from '../components'
+import {getValue} from "../utils";
 
 class ActionForm extends Component {
   constructor(props) {
@@ -416,6 +417,8 @@ class ActionForm extends Component {
     if (!layout) {
       return false
     }
+
+    let bps = getValue('breakpoints', this.props);
 
     for (const bp in bps) {
       let size = bps[bp]
