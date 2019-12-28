@@ -42,7 +42,7 @@ const Input = ({
       width={'100%'}
       borderRadius={4}
       boxSizing={'border-box'}
-      bg={props => `${!error ? getValue('colors.bg', props, '#fff') : shadeColor(getValue('colors.danger', props), 200)}`}
+      bg={props => `${!error ? getValue('colors.bg', props) : shadeColor(getValue('colors.danger', props), 200)}`}
       border={props => `1px solid ${error ? getValue('colors.danger', props) : '#dedede'}`}
       outline={'none'}
       {...(as === 'select' ? {

@@ -15,6 +15,7 @@ export default {
     secondary: '#000',
     warning: '#ffd81b',
     success: '#1bffa0',
-    danger: '#ff1b1b'
+    danger: '#ff1b1b',
+    bg: '#fff'
   }
 }
