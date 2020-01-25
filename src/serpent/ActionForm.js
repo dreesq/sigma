@@ -600,7 +600,7 @@ class ActionForm extends Component {
                 if (typeof size === 'object') {
                   width = size;
                 } else {
-                  width.sm = `${size * 10}%`
+                  width.smUp = `${size * 10}%`
                 }
 
                 return (
