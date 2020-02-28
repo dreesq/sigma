@@ -18,8 +18,11 @@ import {
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.client = new Serpent('http://localhost:3001/o', {
-      debug: true,
+    this.client = new Serpent({
+      dev: true,
+      handler: 'http://localhost:3001/o',
+      actions: 'http://localhost:3001/o',
+      devGateway: 'http://localhost:3001/_dev_gateway',
       axios
     })
   }
@@ -31,7 +34,7 @@ export default class extends Component {
           secondary: '#000'
         }
       }}>
-        <Context client={this.client} debug>
+        <Context client={this.client}>
           <Base />
           <ActionLoader />
           <Container>

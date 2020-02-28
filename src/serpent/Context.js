@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import * as Constants from '../../constants';
 
 class Context extends Component {
   constructor(props) {
@@ -10,8 +11,28 @@ class Context extends Component {
 
   async componentDidMount() {
     const {client} = this.props
-    await client.setup()
+    await client.setup();
+
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    client.remount = () => {
+      this.setState({
+        loading: true
+      }, () => {
+        this.setState({
+          loading: false
+        });
+      });
+    };
+
     this.setState({ loading: false })
+    this.removeListener = client.events.on(Constants.ACTIONS_LOADED, client.remount);
+  }
+
+  componentWillUnmount() {
+    this.removeListener && this.removeListener();
   }
 
   getChildContext() {
@@ -26,7 +47,7 @@ class Context extends Component {
     const {loading} = this.state
     const {children} = this.props
 
-    if (loading) {
+    if (typeof window !== 'undefined' && loading) {
       return null
     }
 

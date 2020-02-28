@@ -1,6 +1,6 @@
 import Sigma from './Sigma'
 import React from 'react'
-import {getValue} from '../utils'
+import {getValue, shadeColor} from '../utils'
 
 const sizes = {
   small: {
@@ -27,9 +27,9 @@ export default ({
     d={'inline-block'}
     borderRadius={4}
     userSelector={'none'}
-    color={'#fff'}
+    color={props => getValue(`colors.${color}`, props)}
     userSelect={'none'}
-    bg={props => getValue(`colors.${color}`, props)}
+    bg={props => shadeColor(getValue(`colors.${color}`, props), 200)}
     {...sizes[size]}
     {...others}
   >

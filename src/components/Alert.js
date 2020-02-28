@@ -1,6 +1,6 @@
 import Sigma from './Sigma'
 import React from 'react'
-import {getValue} from '../utils'
+import {getValue, shadeColor} from '../utils'
 
 export default ({
   children,
@@ -10,9 +10,8 @@ export default ({
   <Sigma
     p={[20, 15]}
     borderRadius={4}
-    border={props => `1px solid ${getValue(`colors.${color}`, props)}`}
-    bg={props => getValue(`colors.${color}`, props)}
-    color={'#fff'}
+    bg={props => `${shadeColor(getValue(`colors.${color}`, props),  200)}`}
+    color={props => getValue(`colors.${color}`, props)}
     {...others}>
     {children}
   </Sigma>

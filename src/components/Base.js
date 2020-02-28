@@ -42,7 +42,6 @@ const base = css`
     a {
       text-decoration: none;
       color: #0590ff;
-      border-bottom: 1px solid #0590ff;
       padding-bottom: 2px;    
     }
     

@@ -1,15 +1,7 @@
 import React, {Component} from 'react';
 import Alert from '../components/Alert';
 import {Sigma} from "../components";
-
-let Constants = {}
-
-try {
-  const Serpent = require('@dreesq/serpent-client')
-  Constants = Serpent.Constants
-} catch (e) {
-
-}
+import * as Constants from '../../constants';
 
 class ActionAlert extends Component {
   constructor(props) {
