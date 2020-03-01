@@ -79,6 +79,15 @@ const base = css`
             animation: loading 1s infinite linear;
         }
         
+        &.large {
+          &:after {
+            width: 75px;
+            height: 75px;
+            margin-left: -37.5px;
+            margin-top: -37.5px;
+          }
+        }
+        
         @keyframes loading {
             from {
                 transform: rotate(0deg)

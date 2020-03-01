@@ -15,7 +15,7 @@ const Container = ({
         padding-right: 15px;
        
         ${!fluid ? toAllBreakpoints(size => `
-            width: ${size === 0 ? '100%' : `${size}px`};
+            max-width: ${size === 0 ? '100%' : `${size}px`};
         `, getValue('breakpoints', props)) : ''}
         
         ${css ? (typeof css === 'function' ? css(props) : css) : ''}
