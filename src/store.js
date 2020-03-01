@@ -85,7 +85,10 @@ export const appStore = {
     let componentWillUnmount = makeFunction(instance, 'componentWillUnmount');
 
     instance.componentDidMount = function() {
-      removeListener = appStore.listen(keys, () => this.forceUpdate(), ifChanged);
+      removeListener = appStore.listen(keys, () => {
+        typeof this.onStoreChange === 'function' && this.onStoreChange();
+        this.forceUpdate();
+      }, ifChanged);
       componentDidMount();
     };
 

@@ -1,6 +1,6 @@
 {
   "name": "@dreesq/sigma",
-  "version": "1.5.6",
+  "version": "1.6.0",
   "description": "Simple, modern UI library using styled-components",
   "author": "dreesq",
   "license": "MIT",
@@ -27,9 +27,6 @@
     "react": "^15.0.0 || ^16.0.0",
     "react-dom": "^15.0.0 || ^16.0.0",
     "styled-components": "^4.3.2"
-  },
-  "optionalDependencies": {
-    "@dreesq/serpent-client": "^2.2.0"
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",

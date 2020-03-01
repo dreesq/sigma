@@ -2,16 +2,41 @@ import React, {Component} from 'react'
 import Sigma from './Sigma'
 import {getValue} from '../utils'
 
+const sizes = {
+  small: {
+    width: 40,
+    height: 24,
+    dotSize: 16,
+    dotMove: 16,
+    bottom: 4
+  },
+  medium: {
+    width: 48,
+    height: 26,
+    dotSize: 20,
+    dotMove: 21,
+    bottom: 3
+  },
+  large: {
+    width: 52,
+    height: 30,
+    dotSize: 24,
+    dotMove: 20,
+    bottom: 3
+  }
+};
+
 export default class Toggle extends Component {
   css = props => {
-    const color = props.color || 'primary'
+    const color = props.color || 'primary';
+    const size = props.size || 'medium';
 
     return `
         .switch {
           position: relative;
           display: inline-block;
-          width: 52px;
-          height: 30px;
+          width: ${sizes[size].width}px;
+          height: ${sizes[size].height}px;
         }
   
         .switch input {
@@ -35,10 +60,10 @@ export default class Toggle extends Component {
         .slider:before {
           position: absolute;
           content: "";
-          height: 24px;
-          width: 24px;
+          height: ${sizes[size].dotSize}px;
+          width: ${sizes[size].dotSize}px;
           left: 4px;
-          bottom: 3px;
+          bottom: ${sizes[size].bottom}px;
           background-color: white;
           -webkit-transition: .4s;
           transition: .4s;
@@ -53,9 +78,9 @@ export default class Toggle extends Component {
         }
   
         input:checked + .slider:before {
-          -webkit-transform: translateX(20px);
-          -ms-transform: translateX(20px);
-          transform: translateX(20px);
+          -webkit-transform: translateX(${sizes[size].dotMove}px);
+          -ms-transform: translateX(${sizes[size].dotMove}px);
+          transform: translateX(${sizes[size].dotMove}px);
         }
         
         .slider.round {

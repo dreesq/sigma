@@ -10,7 +10,7 @@ export default ({
     p={[25, 30, 40, 30]}
     borderRadius={4}
     bg={props => getValue('colors.bg', props)}
-    boxShadow={'0 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2)'}
+    boxShadow={'0 -2px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2)'}
     width={'100%'}
     {...others}
   >

@@ -42,7 +42,6 @@ const base = css`
     a {
       text-decoration: none;
       color: #0590ff;
-      border-bottom: 1px solid #0590ff;
       padding-bottom: 2px;    
     }
     
@@ -85,6 +84,17 @@ const base = css`
             height: 75px;
             margin-left: -37.5px;
             margin-top: -37.5px;
+            border-width: 7px;
+          }
+        }
+        
+        &.medium {
+          &:after {
+            width: 50px;
+            height: 50px;
+            margin-left: -25px;
+            margin-top: -25px;
+            border-width: 5px;
           }
         }
         

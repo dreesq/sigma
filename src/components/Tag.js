@@ -1,6 +1,6 @@
 import Sigma from './Sigma'
 import React from 'react'
-import {getValue} from '../utils'
+import {getValue, hexToOpacity} from '../utils'
 
 const sizes = {
   small: {
@@ -27,9 +27,9 @@ export default ({
     d={'inline-block'}
     borderRadius={4}
     userSelector={'none'}
-    color={'#fff'}
+    color={props => getValue(`colors.${color}`, props)}
     userSelect={'none'}
-    bg={props => getValue(`colors.${color}`, props)}
+    bg={props => hexToOpacity(getValue(`colors.${color}`, props), 0.15)}
     {...sizes[size]}
     {...others}
   >

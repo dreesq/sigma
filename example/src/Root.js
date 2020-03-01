@@ -102,7 +102,7 @@ export default class Root extends Component {
                           )
                         }
                       </Dropdown>
-                      <Button size={'small'} color={'success'} h={43} onClick={e => this.modal.toggle()}>Open Modal</Button>
+                      <Button size={'small'}  h={43} onClick={e => this.modal.toggle()}>Open Modal</Button>
                     </S>
                   </S>
                 </Col>
@@ -111,7 +111,7 @@ export default class Root extends Component {
           </Nav>
           <Container>
             <Row>
-              <Col smUp={'width: 40%'}>
+              <Col mdUp={'width: 40%'}>
                 <S
                   p={[50, 0]}
                   m={'20px auto'}
@@ -139,7 +139,7 @@ export default class Root extends Component {
                     <Tooltip>
                       <a href={'javascript:void(0)'}>Tooltip</a>
                       <S width={190}>
-                        <Card ml={5} p={[10, 8]}>
+                        <Card ml={5} p={[20]}>
                                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti facere fuga impedit ipsa pariatur.
                           <Button mt={11} block size={'small'} inverted onClick={e => this.modal.toggle()}>Open modal</Button>
                         </Card>
@@ -191,7 +191,7 @@ export default class Root extends Component {
                   <Pagination totalPages={23} onChange={this.onChange} textAlign={'right'} mt={11} />
                 </Card>
               </Col>
-              <Col smUp={'width: 60%'}>
+              <Col mdUp={'width: 60%'}>
                 <Card mt={20}>
                   <S position={'relative'}>
                     <Filters
@@ -277,7 +277,7 @@ export default class Root extends Component {
 
                 </Card>
                 <Card mt={20}>
-                  <Alert>
+                  <Alert color={'success'}>
                                         Primary alert
                   </Alert>
                   <h3>Card</h3>

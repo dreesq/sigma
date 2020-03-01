@@ -4,6 +4,7 @@ import ActionLoader from './ActionLoader'
 import AutoFilter from './AutoFilter'
 import ActionAlert from './ActionAlert'
 import AutoCrud from './AutoCrud'
+import ActionWidget from './ActionWidget'
 
 export {
   Context,
@@ -11,5 +12,6 @@ export {
   ActionLoader,
   AutoFilter,
   ActionAlert,
-  AutoCrud
+  AutoCrud,
+  ActionWidget
 }
