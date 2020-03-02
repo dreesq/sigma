@@ -103,8 +103,8 @@ class ActionAlert extends Component {
       }
 
       compiled.push(
-        <Sigma as={'ul'} m={[5, 0]} ml={5}>
-          <Sigma as={'h4'} m={[10, 0, 5, 0]}>{this.formatKey(key)}:</Sigma>
+        <Sigma as={'ul'} m={[5, 0]} ml={5} pl={15} pr={0} listStyle={'circle'}>
+          <Sigma as={'h4'} m={[10, 0, 5, 0]} fontSize={13}>{this.formatKey(key)}</Sigma>
           {result}
         </Sigma>
       );
@@ -127,7 +127,7 @@ class ActionAlert extends Component {
 
     return (
       <Alert color={color} d={'flex'} alignItems={'flex-start'} {...this.props}>
-        <Sigma>
+        <Sigma mt={13}>
           {content}
         </Sigma>
         <Sigma ml={'auto'} cursor={'pointer'}>
