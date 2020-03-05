@@ -1,16 +1,8 @@
 import React, {Component} from 'react'
+import {LOADING_END, LOADING_START} from "../../constants";
 import {
   Sigma
 } from '../components'
-
-let Constants = {}
-
-try {
-  const Serpent = require('@dreesq/serpent-client')
-  Constants = Serpent.Constants
-} catch (e) {
-
-}
 
 let interval = false
 
@@ -27,8 +19,8 @@ class ActionLoader extends Component {
     const {client} = this.context
 
     this.listeners = client.events.multi({
-      [Constants.LOADING_START]: this.onLoadingStart,
-      [Constants.LOADING_END]: this.onLoadingEnd
+      [LOADING_START]: this.onLoadingStart,
+      [LOADING_END]: this.onLoadingEnd
     })
   }
 

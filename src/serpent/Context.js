@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import * as Constants from '../../constants';
+import {ACTIONS_LOADED} from '../../constants';
 
 class Context extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class Context extends Component {
     };
 
     this.setState({ loading: false })
-    this.removeListener = client.events.on(Constants.ACTIONS_LOADED, client.remount);
+    this.removeListener = client.events.on(ACTIONS_LOADED, client.remount);
   }
 
   componentWillUnmount() {

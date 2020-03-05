@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Alert from '../components/Alert';
 import {Sigma} from "../components";
-import * as Constants from '../../constants';
+import {ACTION_ERROR, ACTION_SUCCESS} from '../../constants';
 
 class ActionAlert extends Component {
   constructor(props) {
@@ -24,11 +24,11 @@ class ActionAlert extends Component {
     const events = {};
 
     if (listenError) {
-      events[Constants.ACTION_ERROR] = this.onError;
+      events[ACTION_ERROR] = this.onError;
     }
 
     if (listenSuccess) {
-      events[Constants.ACTION_SUCCESS] = this.onSuccess;
+      events[ACTION_SUCCESS] = this.onSuccess;
     }
 
     this.listeners = client.events.multi(events);

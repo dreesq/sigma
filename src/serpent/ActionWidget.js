@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as Constants from '../../constants';
+import {ACTION_SUCCESS} from '../../constants';
 
 class ActionWidget extends Component {
   state = {
@@ -8,7 +8,7 @@ class ActionWidget extends Component {
 
   componentDidMount() {
     const {action: widgetAction, client} = this.props;
-    this.removeListener = client.events.on(Constants.ACTION_SUCCESS, ([action, result]) => {
+    this.removeListener = client.events.on(ACTION_SUCCESS, ([action, result]) => {
       if (result.widget && widgetAction === action) {
         this.setState({
           widget: result.widget
