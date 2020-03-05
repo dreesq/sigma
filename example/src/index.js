@@ -4,4 +4,4 @@ import Serpent from './Serpent'
 import Root from './Root'
 import Store from './Store'
 
-ReactDOM.render(<Root />, document.getElementById('root'))
+ReactDOM.render(<Serpent />, document.getElementById('root'))

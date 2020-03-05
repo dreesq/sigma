@@ -12,7 +12,8 @@ import {
   Row,
   Col,
   AutoCrud,
-  Text
+  Text,
+  S
 } from '@dreesq/sigma'
 
 export default class extends Component {

@@ -11,6 +11,7 @@ module.exports = () => {
     },
     plugins: {
       db: {
+        driver: 'mongodb',
         server: 'mongodb://127.0.0.1/database'
       }
     }

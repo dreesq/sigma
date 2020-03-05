@@ -25,6 +25,7 @@ export * from './Grid'
 export {
   Base,
   Sigma,
+  Sigma as S,
   Card,
   Button,
   Alert,
