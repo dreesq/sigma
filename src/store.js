@@ -101,3 +101,5 @@ export const appStore = {
     return store;
   }
 };
+
+window.store = appStore;

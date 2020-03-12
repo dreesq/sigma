@@ -51,8 +51,8 @@ export default class ConfirmModal extends Component {
         <h2>{title}</h2>
         <p>{message}</p>
         <Sigma mt={24} d={'flex'}>
-          <Button onClick={e => this.onAction(ConfirmModal.CANCEL)} mr={6} ml={'auto'} color={'secondary'}>Cancel</Button>
-          <Button onClick={e => this.onAction(ConfirmModal.OK)} color={'danger'}>Confirm</Button>
+          <Button onClick={e => this.onAction(ConfirmModal.CANCEL)} mr={6} ml={'auto'} color={'secondary'} unstyled>Cancel</Button>
+          <Button onClick={e => this.onAction(ConfirmModal.OK)} color={'primary'}>Confirm</Button>
         </Sigma>
       </Modal>
     );

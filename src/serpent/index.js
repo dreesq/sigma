@@ -5,6 +5,8 @@ import AutoFilter from './AutoFilter'
 import ActionAlert from './ActionAlert'
 import AutoCrud from './AutoCrud'
 import ActionWidget from './ActionWidget'
+import ActionConfirm from './ActionConfirm'
+import GlobalAlert from './GlobalAlert'
 
 export {
   Context,
@@ -13,5 +15,7 @@ export {
   AutoFilter,
   ActionAlert,
   AutoCrud,
-  ActionWidget
+  ActionWidget,
+  ActionConfirm,
+  GlobalAlert,
 }

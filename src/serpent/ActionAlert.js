@@ -9,6 +9,7 @@ class ActionAlert extends Component {
     this.state = {
       visible: false,
       color: 'primary',
+      action: '',
       messages: {},
       content: null
     };
@@ -56,7 +57,8 @@ class ActionAlert extends Component {
     this.setState({
       color: 'danger',
       visible: true,
-      content
+      content,
+      action
     });
   };
 
@@ -71,12 +73,15 @@ class ActionAlert extends Component {
 
     if (renderSuccess) {
       content = renderSuccess([action, result]);
+    } else if(typeof result === 'string') {
+      content = result;
     }
 
     this.setState({
       color: 'success',
       content,
-      visible: true
+      visible: true,
+      action
     });
   };
 
@@ -117,9 +122,11 @@ class ActionAlert extends Component {
     const {
       color,
       visible,
-      messages,
-      content
+      content,
+      action
     } = this.state;
+
+    const {formatMessage} = this.props;
 
     if (!visible) {
       return null;
@@ -127,7 +134,8 @@ class ActionAlert extends Component {
 
     return (
       <Alert color={color} d={'flex'} alignItems={'flex-start'} {...this.props}>
-        <Sigma mt={13}>
+        <Sigma>
+          {formatMessage && formatMessage(action)}
           {content}
         </Sigma>
         <Sigma ml={'auto'} cursor={'pointer'}>

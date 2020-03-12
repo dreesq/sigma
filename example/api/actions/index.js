@@ -93,3 +93,5 @@ action('getPosts', utils.autoFilter('Post', {
     filters.search && query.where('title', { $regex: new RegExp(filters.search), $options: 'i' })
   }
 }))
+
+action('testAction2', 'Test result');

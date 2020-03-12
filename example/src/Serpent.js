@@ -13,7 +13,10 @@ import {
   Col,
   AutoCrud,
   Text,
-  S
+  S,
+  ActionConfirm,
+  GlobalAlert,
+  Button,
 } from '@dreesq/sigma'
 
 export default class extends Component {
@@ -37,6 +40,7 @@ export default class extends Component {
       }}>
         <Context client={this.client}>
           <Base />
+          <ActionConfirm />
           <ActionLoader />
           <Container>
             <Row mt={32}>
@@ -86,6 +90,12 @@ export default class extends Component {
                     ['title', 'Title', null, true]
                   ]}
                 />
+                <Container>
+                  <GlobalAlert mt={23}/>
+                  <Button onClick={() => this.client.testAction2('', {confirm: true})} mt={23}>
+                    Test Confirm Action
+                  </Button>
+                </Container>
               </Col>
             </Row>
           </Container>

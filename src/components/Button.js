@@ -28,6 +28,7 @@ export default ({
   className = '',
   css,
   hover,
+  unstyled,
   ...others
 }) => (
   <Sigma
@@ -38,9 +39,9 @@ export default ({
     boxSizing={'border-box'}
     border={'none'}
     {...sizes[size]}
-    {...(inverted ? {
+    {...(inverted || unstyled ? {
       bg: 'transparent',
-      border: props => `1px solid ${getValue(`colors.${color}`, props)}`,
+      ...(inverted ? {border: props => `1px solid ${getValue(`colors.${color}`, props)}`} : {}),
       c: props => getValue(`colors.${color}`, props),
       hover: props => `
             border-color: ${shadeColor(getValue(`colors.${color}`, props), 20)};
